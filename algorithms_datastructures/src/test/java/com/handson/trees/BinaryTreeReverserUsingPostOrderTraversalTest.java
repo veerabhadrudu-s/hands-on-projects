@@ -3,6 +3,9 @@
  */
 package com.handson.trees;
 
+import static com.handson.trees.BinaryTreeUtil.createTreeNode;
+import static com.handson.trees.BinaryTreeUtil.createTwoChildrenNode;
+import static com.handson.trees.BinaryTreeUtil.linkParentWithChildren;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -73,37 +76,13 @@ public class BinaryTreeReverserUsingPostOrderTraversalTest {
 		BinaryTreeNode<Integer, Integer> expectedTreeRoot = createTreeNode(1);
 		BinaryTreeNode<Integer, Integer> expectedLeftChild = createTwoChildrenNode(3, 7, 6);
 		BinaryTreeNode<Integer, Integer> expectedRightChild = createTwoChildrenNode(2, 5, 4);
-		linkParentChildren(expectedTreeRoot, expectedLeftChild, expectedRightChild);
+		linkParentWithChildren(expectedTreeRoot, expectedLeftChild, expectedRightChild);
 		BinaryTreeNode<Integer, Integer> root = createTreeNode(1);
 		BinaryTreeNode<Integer, Integer> leftChild = createTwoChildrenNode(2, 4, 5);
 		BinaryTreeNode<Integer, Integer> rightChild = createTwoChildrenNode(3, 6, 7);
-		linkParentChildren(root, leftChild, rightChild);
+		linkParentWithChildren(root, leftChild, rightChild);
 		binaryTreeReverser.reverseTree(root);
 		assertEquals(expectedTreeRoot, root);
-	}
-
-	private BinaryTreeNode<Integer, Integer> createTwoChildrenNode(int nodeKeyAndValue, int leftChildKeyAndValue,
-			int rightChildKeyAndValue) {
-		BinaryTreeNode<Integer, Integer> node = createTreeNode(nodeKeyAndValue);
-		BinaryTreeNode<Integer, Integer> leftChild = createTreeNode(leftChildKeyAndValue);
-		BinaryTreeNode<Integer, Integer> rightChild = createTreeNode(rightChildKeyAndValue);
-		linkParentChildren(node, leftChild, rightChild);
-		return node;
-	}
-
-	private BinaryTreeNode<Integer, Integer> createTreeNode(int keyAndValue) {
-		BinaryTreeNode<Integer, Integer> treeNode = new BinaryTreeNodeForReverseTest<>();
-		treeNode.key = keyAndValue;
-		treeNode.value = keyAndValue;
-		return treeNode;
-	}
-
-	private void linkParentChildren(BinaryTreeNode<Integer, Integer> node, BinaryTreeNode<Integer, Integer> leftChild,
-			BinaryTreeNode<Integer, Integer> rightChild) {
-		node.leftChild = leftChild;
-		leftChild.parentNode = node;
-		node.rightChild = rightChild;
-		rightChild.parentNode = node;
 	}
 
 }

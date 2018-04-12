@@ -7,7 +7,7 @@ package com.handson.trees;
  * @author sveera
  *
  */
-public class BinaryTreeNodeForReverseTest<K, V> extends BinaryTreeNode<K, V> {
+public class BinaryTreeNodeForReversal<K, V> extends BinaryTreeNode<K, V> {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -17,7 +17,7 @@ public class BinaryTreeNodeForReverseTest<K, V> extends BinaryTreeNode<K, V> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BinaryTreeNode<K, V> other = (BinaryTreeNode<K, V>) obj;
+		BinaryTreeNodeForReversal<K, V> other = (BinaryTreeNodeForReversal<K, V>) obj;
 		if (key == null) {
 			if (other.key != null)
 				return false;
