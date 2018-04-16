@@ -28,33 +28,39 @@ public class BinaryTreeCreator {
 			return createTreeNode(parseInt(inOrderTraversalValues[0]));
 		int rootNodeIndexInInOrderValues = calculateRootNodeIndexValue(inOrderTraversalValues,
 				preOrderTraversalValues[0]);
-		BinaryTreeNode<Integer, Integer> rootNode = createTreeNode(
-				parseInt(inOrderTraversalValues[rootNodeIndexInInOrderValues]));
-		constructLeftSubTree(preOrderTraversalValues, inOrderTraversalValues, rootNodeIndexInInOrderValues, rootNode);
-		constructRightSubTree(preOrderTraversalValues, inOrderTraversalValues, rootNodeIndexInInOrderValues, rootNode);
-		return rootNode;
+		BinaryTreeNode<Integer, Integer> parentNode = constructParentNode(inOrderTraversalValues,
+				rootNodeIndexInInOrderValues);
+		constructLeftSubTree(preOrderTraversalValues, inOrderTraversalValues, rootNodeIndexInInOrderValues, parentNode);
+		constructRightSubTree(preOrderTraversalValues, inOrderTraversalValues, rootNodeIndexInInOrderValues,
+				parentNode);
+		return parentNode;
 
 	}
 
+	private BinaryTreeNode<Integer, Integer> constructParentNode(String[] inOrderTraversalValues,
+			int rootNodeIndexInInOrderValues) {
+		return createTreeNode(parseInt(inOrderTraversalValues[rootNodeIndexInInOrderValues]));
+	}
+
 	private void constructRightSubTree(String[] preOrderTraversalValues, String[] inOrderTraversalValues,
-			int rootNodeIndexInInOrderValues, BinaryTreeNode<Integer, Integer> rootNode) {
+			int rootNodeIndexInInOrderValues, BinaryTreeNode<Integer, Integer> parentNode) {
 		if (inOrderTraversalValues.length - 1 > rootNodeIndexInInOrderValues) {
 			BinaryTreeNode<Integer, Integer> rightChild = constructTree(
 					copyOfRange(preOrderTraversalValues, rootNodeIndexInInOrderValues + 1,
 							preOrderTraversalValues.length),
 					copyOfRange(inOrderTraversalValues, rootNodeIndexInInOrderValues + 1,
 							inOrderTraversalValues.length));
-			linkRightChildren(rootNode, rightChild);
+			linkRightChildren(parentNode, rightChild);
 		}
 	}
 
 	private void constructLeftSubTree(String[] preOrderTraversalValues, String[] inOrderTraversalValues,
-			int rootNodeIndexInInOrderValues, BinaryTreeNode<Integer, Integer> rootNode) {
+			int rootNodeIndexInInOrderValues, BinaryTreeNode<Integer, Integer> parentNode) {
 		if (rootNodeIndexInInOrderValues > 0) {
 			BinaryTreeNode<Integer, Integer> leftChild = constructTree(
 					copyOfRange(preOrderTraversalValues, 1, rootNodeIndexInInOrderValues + 1),
 					copyOfRange(inOrderTraversalValues, 0, rootNodeIndexInInOrderValues));
-			linkLeftChildren(rootNode, leftChild);
+			linkLeftChildren(parentNode, leftChild);
 		}
 	}
 

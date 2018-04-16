@@ -27,10 +27,8 @@ public class BinaryTreeUtil {
 
 	public static void linkParentWithChildren(BinaryTreeNode<Integer, Integer> node,
 			BinaryTreeNode<Integer, Integer> leftChild, BinaryTreeNode<Integer, Integer> rightChild) {
-		if (leftChild != null)
-			linkLeftChildren(node, leftChild);
-		if (rightChild != null)
-			linkRightChildren(node, rightChild);
+		linkLeftChildren(node, leftChild);
+		linkRightChildren(node, rightChild);
 	}
 
 	public static void linkLeftChildren(BinaryTreeNode<Integer, Integer> node,

@@ -15,24 +15,26 @@ public abstract class EularTourTreeTraversal<R> {
 		if (tree.leftChild == null && tree.rightChild == null)
 			return handleForLeafNode(tree);
 		else {
-			beforeLeftChild(tree);
+			R beforeLeftChildVisitResult = beforeLeftChild(tree);
 			R leftNodeResult = treeTraversal(tree.leftChild);
-			fromBottom(tree);
+			R fromBottomVisitResult = fromBottom(tree);
 			R rightNodeResult = treeTraversal(tree.rightChild);
-			afterRight(tree);
-			return combineResult(leftNodeResult, rightNodeResult);
+			R afterRightVisitResult = afterRight(tree);
+			return combineResult(beforeLeftChildVisitResult, leftNodeResult, fromBottomVisitResult, rightNodeResult,
+					afterRightVisitResult);
 		}
 
 	}
 
 	protected abstract <K, V> R handleForLeafNode(BinaryTreeNode<K, V> tree);
 
-	protected abstract <K, V> void beforeLeftChild(BinaryTreeNode<K, V> tree);
+	protected abstract <K, V> R beforeLeftChild(BinaryTreeNode<K, V> tree);
 
 	protected abstract <K, V> R fromBottom(BinaryTreeNode<K, V> tree);
 
-	protected abstract <K, V> void afterRight(BinaryTreeNode<K, V> tree);
+	protected abstract <K, V> R afterRight(BinaryTreeNode<K, V> tree);
 
-	protected abstract R combineResult(R leftNodeResult, R rightNodeResult);
+	protected abstract R combineResult(R beforeLeftChildVisitResult, R leftNodeResult, R fromBottomVisitResult,
+			R rightNodeResult, R afterRightVisitResult);
 
 }

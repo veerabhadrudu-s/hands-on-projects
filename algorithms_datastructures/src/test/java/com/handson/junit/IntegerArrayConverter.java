@@ -14,10 +14,10 @@ public class IntegerArrayConverter extends SimpleArgumentConverter {
 
 	@Override
 	protected Object convert(Object source, Class<?> targetType) throws ArgumentConversionException {
-		if (!(source instanceof String && Integer[].class.isAssignableFrom(targetType)))
+		if (source != null && !(source instanceof String && Integer[].class.isAssignableFrom(targetType)))
 			throw new ArgumentConversionException(
 					"Conversion from " + source.getClass() + " to " + targetType + " not supported.");
-		return convertToIntegerArray(((String) source).split("\\s*,\\s*"));
+		return source != null ? convertToIntegerArray(((String) source).split("\\s*,\\s*")) : new Integer[0];
 	}
 
 	private Integer[] convertToIntegerArray(String[] split) {
