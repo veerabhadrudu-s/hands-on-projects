@@ -89,14 +89,8 @@ public class BinarySortedTree<K, V> {
 		node.value = successorNode.value;
 		if (isLeafNode(successorNode))
 			clearParentOfLeafSuccessor(successorNode);
-		else {
-			if (successorNode.parentNode.rightChild == successorNode)
-				successorNode.parentNode.rightChild = successorNode.rightChild;
-			else
-				successorNode.parentNode.leftChild = successorNode.rightChild;
-			successorNode.rightChild.parentNode = successorNode.parentNode;
-		}
-
+		else
+			rearrangeSucessorRightSubTreeToSucessorParent(successorNode);
 		return node;
 	}
 
@@ -105,6 +99,14 @@ public class BinarySortedTree<K, V> {
 			successorNode.parentNode.leftChild = null;
 		else
 			successorNode.parentNode.rightChild = null;
+	}
+
+	private void rearrangeSucessorRightSubTreeToSucessorParent(BinaryTreeNode<K, V> successorNode) {
+		if (successorNode.parentNode.rightChild == successorNode)
+			successorNode.parentNode.rightChild = successorNode.rightChild;
+		else
+			successorNode.parentNode.leftChild = successorNode.rightChild;
+		successorNode.rightChild.parentNode = successorNode.parentNode;
 	}
 
 	private boolean isRootNode(BinaryTreeNode<K, V> node) {
