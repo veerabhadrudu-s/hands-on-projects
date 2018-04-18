@@ -3,11 +3,17 @@
  */
 package com.handson.sorting;
 
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Collections;
+import java.util.Random;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ConvertWith;
@@ -73,6 +79,24 @@ public class InsertionSortingTest {
 		logger.debug("\n\n\n");
 		insertionSorting.sortDescending(valuesTobeSorted);
 		assertArrayEquals(expectedSortedValues, valuesTobeSorted);
+	}
+
+	@DisplayName("test sorting randomly")
+	@RepeatedTest(1)
+	public void testSortingRandomly(RepetitionInfo repetitionInfo) {
+		logger.debug("Repeating index " + repetitionInfo.getCurrentRepetition());
+		Random random = new Random();
+		int randomLengthCount = 20000;
+		Integer[] arrayToBeSorted = new Integer[randomLengthCount];
+		Integer[] expectedSortedArray = new Integer[randomLengthCount];
+		for (int i = 0, j; i < arrayToBeSorted.length; i++) {
+			j = random.nextInt();
+			arrayToBeSorted[i] = j;
+			expectedSortedArray[i] = j;
+		}
+		insertionSorting.sort(arrayToBeSorted);
+		Collections.sort(asList(expectedSortedArray));
+		assertArrayEquals(expectedSortedArray, arrayToBeSorted);
 	}
 
 }

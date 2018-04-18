@@ -62,7 +62,7 @@ public class BinarySortedTree<K, V> {
 		else if (isNodeWithSingleChild(node))
 			return removeNodeWithSingleChild(node);
 		else
-			return removeNodeWithTwoChild(node);
+			return removeNodeWithTwoChild_With_Its_Successor(node);
 	}
 
 	private BinaryTreeNode<K, V> removeLeafNode(BinaryTreeNode<K, V> node) {
@@ -84,7 +84,11 @@ public class BinarySortedTree<K, V> {
 		return node;
 	}
 
-	private BinaryTreeNode<K, V> removeNodeWithTwoChild(BinaryTreeNode<K, V> node) {
+	private BinaryTreeNode<K, V> removeNodeWithTwoChild_With_Its_Successor(BinaryTreeNode<K, V> node) {
+		/*
+		 * A successor can be a leaf or internal node with only right sub tree.A
+		 * successor will never contain left subtree.
+		 */
 		BinaryTreeNode<K, V> successorNode = findSuccesorNode(node);
 		node.value = successorNode.value;
 		if (isLeafNode(successorNode))

@@ -15,11 +15,11 @@ public class BinarySearch {
 		return recursiveSearch(numberToBeSearched, 0, inputArray.length - 1, inputArray);
 	}
 
-	private Integer recursiveSearch(Integer numberToBeSearched, int lowderIndex, int higherIndex,
+	private Integer recursiveSearch(Integer numberToBeSearched, Integer lowderIndex, Integer higherIndex,
 			Integer[] inputArray) {
 		if (lowderIndex > higherIndex)
-			return null;
-		int midIndex = (lowderIndex + higherIndex) / 2;
+			return -1;
+		Integer midIndex = (lowderIndex + higherIndex) / 2;
 		if (numberToBeSearched == inputArray[midIndex])
 			return midIndex;
 		else if (numberToBeSearched < inputArray[midIndex])
@@ -38,11 +38,11 @@ public class BinarySearch {
 				inputArray);
 	}
 
-	private Integer recursiveSearch(Comparator comparator, Integer numberToBeSearched, int lowderIndex, int higherIndex,
-			Integer[] inputArray) {
+	private Integer recursiveSearch(Comparator comparator, Integer numberToBeSearched, Integer lowderIndex,
+			Integer higherIndex, Integer[] inputArray) {
 		if (lowderIndex > higherIndex)
-			return null;
-		int midIndex = (lowderIndex + higherIndex) / 2;
+			return -1;
+		Integer midIndex = (lowderIndex + higherIndex) / 2;
 		if (numberToBeSearched == inputArray[midIndex])
 			return midIndex;
 		else if (comparator.compare(numberToBeSearched, inputArray[midIndex]))
