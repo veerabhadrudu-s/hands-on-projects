@@ -69,9 +69,9 @@ public class QuickSortingTest {
 		assertArrayEquals(expectedSortedValues, valuesTobeSorted);
 	}
 
-	@DisplayName("test sorting randomly using random pivot")
+	@DisplayName("test sorting using random numbers with random pivot")
 	@RepeatedTest(100)
-	public void testSortingRandomlyUsingRandomPivot(RepetitionInfo repetitionInfo) {
+	public void testSortingUsingRandomNumbersWithRandomPivot(RepetitionInfo repetitionInfo) {
 		logger.debug("Repeating index " + repetitionInfo.getCurrentRepetition());
 		Random random = new Random();
 		int randomLengthCount = 20000;
@@ -100,9 +100,9 @@ public class QuickSortingTest {
 		assertArrayEquals(expectedSortedValues, valuesTobeSorted);
 	}
 
-	@DisplayName("test sorting randomly")
+	@DisplayName("test sorting using random numbers")
 	@RepeatedTest(100)
-	public void testSortingRandomly(RepetitionInfo repetitionInfo) {
+	public void testSortingUsingRandomNumbers(RepetitionInfo repetitionInfo) {
 		logger.debug("Repeating index " + repetitionInfo.getCurrentRepetition());
 		Random random = new Random();
 		int randomLengthCount = 20000;
@@ -113,6 +113,7 @@ public class QuickSortingTest {
 			arrayToBeSorted[i] = j;
 			expectedSortedArray[i] = j;
 		}
+		// logger.debug(Arrays.deepToString(arrayToBeSorted));
 		quickSorting.sort(arrayToBeSorted);
 		Collections.sort(asList(expectedSortedArray));
 		assertArrayEquals(expectedSortedArray, arrayToBeSorted);

@@ -9,7 +9,7 @@ package com.handson.trees;
  */
 public abstract class EularTourTreeTraversal<R> {
 
-	protected <K, V> R treeTraversal(BinaryTreeNode<K, V> tree) {
+	public final <K, V> R treeTraversal(BinaryTreeNode<K, V> tree) {
 		if (tree == null)
 			return null;
 		if (tree.leftChild == null && tree.rightChild == null)

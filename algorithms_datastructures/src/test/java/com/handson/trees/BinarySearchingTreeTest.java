@@ -20,7 +20,7 @@ import com.handson.junit.IntegerArrayConverter;
  * @author sveera
  *
  */
-public class BinarySortedTreeTest {
+public class BinarySearchingTreeTest {
 
 	/*
 	 * In Binary Sorted Tree , total traversal value depends up on height of the
@@ -30,11 +30,11 @@ public class BinarySortedTreeTest {
 	 * will take worst complexity of O(n) and average complexity of O(log(n))
 	 */
 
-	private BinarySortedTreeSpy<Integer, String> binarySortedTree;
+	private BinarySearchingTreeSpy<Integer, String> binarySearchingTree;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		binarySortedTree = new BinarySortedTreeSpy<>((key1, key2) -> key1 == key2 ? 0 : key1 > key2 ? -1 : 1,
+		binarySearchingTree = new BinarySearchingTreeSpy<>((key1, key2) -> key1 == key2 ? 0 : key1 > key2 ? -1 : 1,
 				new BinaryTreeInorderTraversalForValuesInAscendingOrder());
 	}
 
@@ -62,10 +62,10 @@ public class BinarySortedTreeTest {
 	public void testInsertionAndSearchOperations(@ConvertWith(IntegerArrayConverter.class) Integer[] valuesToBeInserted,
 			String expectedInorderTraversalData) {
 		for (Integer valueToBeInserted : valuesToBeInserted)
-			binarySortedTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
+			binarySearchingTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
 		for (Integer valueToBeInserted : valuesToBeInserted)
-			assertEquals(valueOf(valueToBeInserted), binarySortedTree.search(valueToBeInserted));
-		assertEquals(expectedInorderTraversalData, binarySortedTree.getTreeInorderTraversalData());
+			assertEquals(valueOf(valueToBeInserted), binarySearchingTree.search(valueToBeInserted));
+		assertEquals(expectedInorderTraversalData, binarySearchingTree.getTreeInorderTraversalData());
 	}
 
 	@DisplayName("test find minimum Value in binary sorted tree constructed using input array")
@@ -75,9 +75,9 @@ public class BinarySortedTreeTest {
 	public void testFindMinimumValueInTheTree(@ConvertWith(IntegerArrayConverter.class) Integer[] valuesToBeInserted,
 			String expectedInorderTraversalData, String expectedMinValue) {
 		for (Integer valueToBeInserted : valuesToBeInserted)
-			binarySortedTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
-		assertEquals(expectedInorderTraversalData, binarySortedTree.getTreeInorderTraversalData());
-		assertEquals(expectedMinValue, binarySortedTree.findMinValue());
+			binarySearchingTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
+		assertEquals(expectedInorderTraversalData, binarySearchingTree.getTreeInorderTraversalData());
+		assertEquals(expectedMinValue, binarySearchingTree.findMinValue());
 	}
 
 	@DisplayName("test find maximum Value in binary sorted tree constructed using input array")
@@ -87,9 +87,9 @@ public class BinarySortedTreeTest {
 	public void testFindMaximumValueInTree(@ConvertWith(IntegerArrayConverter.class) Integer[] valuesToBeInserted,
 			String expectedInorderTraversalData, String expectedMinValue) {
 		for (Integer valueToBeInserted : valuesToBeInserted)
-			binarySortedTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
-		assertEquals(expectedInorderTraversalData, binarySortedTree.getTreeInorderTraversalData());
-		assertEquals(expectedMinValue, binarySortedTree.findMaxValue());
+			binarySearchingTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
+		assertEquals(expectedInorderTraversalData, binarySearchingTree.getTreeInorderTraversalData());
+		assertEquals(expectedMinValue, binarySearchingTree.findMaxValue());
 	}
 
 	@DisplayName("test find successor node in binary sorted tree constructed using input array")
@@ -101,8 +101,8 @@ public class BinarySortedTreeTest {
 	public void testfindSuccessor(@ConvertWith(IntegerArrayConverter.class) Integer[] valuesToBeInserted,
 			Integer successorForKeyToBeSearched, String expectedSuccessor) {
 		for (Integer valueToBeInserted : valuesToBeInserted)
-			binarySortedTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
-		BinaryTreeNode<Integer, String> actualSuccessorNode = binarySortedTree
+			binarySearchingTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
+		BinaryTreeNode<Integer, String> actualSuccessorNode = binarySearchingTree
 				.findSuccessor(successorForKeyToBeSearched);
 		if (actualSuccessorNode != null)
 			assertEquals(expectedSuccessor, actualSuccessorNode.value);
@@ -120,8 +120,8 @@ public class BinarySortedTreeTest {
 	public void testfindPredecessor(@ConvertWith(IntegerArrayConverter.class) Integer[] valuesToBeInserted,
 			Integer predecessorForKeyToBeSearched, String expectedPredecessor) {
 		for (Integer valueToBeInserted : valuesToBeInserted)
-			binarySortedTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
-		BinaryTreeNode<Integer, String> actualPredecessorNode = binarySortedTree
+			binarySearchingTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
+		BinaryTreeNode<Integer, String> actualPredecessorNode = binarySearchingTree
 				.findPredecessor(predecessorForKeyToBeSearched);
 		if (actualPredecessorNode != null)
 			assertEquals(expectedPredecessor, actualPredecessorNode.value);
@@ -146,19 +146,19 @@ public class BinarySortedTreeTest {
 	public void testDeleteKey(@ConvertWith(IntegerArrayConverter.class) Integer[] valuesToBeInserted,
 			Integer keyToBeDeleted, String expectedInorderTraversalData, ArgumentsAccessor arguments) {
 		for (Integer valueToBeInserted : valuesToBeInserted)
-			binarySortedTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
-		binarySortedTree.delete(keyToBeDeleted);
-		assertEquals(expectedInorderTraversalData, binarySortedTree.getTreeInorderTraversalData());
-		if (binarySortedTree.getTreeInorderTraversalData() != null)
+			binarySearchingTree.insert(valueToBeInserted, valueOf(valueToBeInserted));
+		binarySearchingTree.delete(keyToBeDeleted);
+		assertEquals(expectedInorderTraversalData, binarySearchingTree.getTreeInorderTraversalData());
+		if (binarySearchingTree.getTreeInorderTraversalData() != null)
 			assertEquals(arguments.getString(0).split(",").length - 1,
-					binarySortedTree.getTreeInorderTraversalData().split(",").length);
+					binarySearchingTree.getTreeInorderTraversalData().split(",").length);
 	}
 
-	class BinarySortedTreeSpy<K, V> extends BinarySortedTree<K, V> {
+	class BinarySearchingTreeSpy<K, V> extends BinarySearchingTree<K, V> {
 
 		private EularTourTreeTraversal<String> eularTourTreeTraversal;
 
-		public BinarySortedTreeSpy(Comparator<K> comparator, EularTourTreeTraversal<String> eularTourTreeTraversal) {
+		public BinarySearchingTreeSpy(Comparator<K> comparator, EularTourTreeTraversal<String> eularTourTreeTraversal) {
 			super(comparator);
 			this.eularTourTreeTraversal = eularTourTreeTraversal;
 		}

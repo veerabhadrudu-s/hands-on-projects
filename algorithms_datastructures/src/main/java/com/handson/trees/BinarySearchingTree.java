@@ -7,12 +7,12 @@ package com.handson.trees;
  * @author sveera
  *
  */
-public class BinarySortedTree<K, V> {
+public class BinarySearchingTree<K, V> {
 
 	private final Comparator<K> comparator;
 	protected BinaryTreeNode<K, V> rootNode;
 
-	public BinarySortedTree(Comparator<K> comparator) {
+	public BinarySearchingTree(Comparator<K> comparator) {
 		super();
 		this.comparator = comparator;
 	}
@@ -66,7 +66,7 @@ public class BinarySortedTree<K, V> {
 	}
 
 	private BinaryTreeNode<K, V> removeLeafNode(BinaryTreeNode<K, V> node) {
-		clearParentOfLeafSuccessor(node);
+		clearParentOfLeaf(node);
 		return node;
 	}
 
@@ -92,13 +92,13 @@ public class BinarySortedTree<K, V> {
 		BinaryTreeNode<K, V> successorNode = findSuccesorNode(node);
 		node.value = successorNode.value;
 		if (isLeafNode(successorNode))
-			clearParentOfLeafSuccessor(successorNode);
+			clearParentOfLeaf(successorNode);
 		else
 			rearrangeSucessorRightSubTreeToSucessorParent(successorNode);
 		return node;
 	}
 
-	private void clearParentOfLeafSuccessor(BinaryTreeNode<K, V> successorNode) {
+	private void clearParentOfLeaf(BinaryTreeNode<K, V> successorNode) {
 		if (successorNode.parentNode.leftChild == successorNode)
 			successorNode.parentNode.leftChild = null;
 		else
@@ -219,10 +219,6 @@ public class BinarySortedTree<K, V> {
 		node.key = key;
 		node.value = value;
 		return node;
-	}
-
-	public interface Comparator<K> {
-		int compare(K parentNodeKey, K childNodeKey);
 	}
 
 }
