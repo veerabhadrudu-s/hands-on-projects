@@ -15,7 +15,7 @@ import com.handson.trees.Comparator;
 import com.handson.trees.EularTourTreeTraversal;
 
 /**
- * @author sveera 4
+ * @author sveera
  */
 public class AVLTreeTest {
 
@@ -303,7 +303,7 @@ public class AVLTreeTest {
 
 	@Test
 	@DisplayName("test remove leaf key in Tree with height 7 to make height balancing property violation and rotate tree right scenario-1")
-	public void testRemoveLeafKeyInTreeWithHeight7ToMakeHeightBalancingPropertyViolationAndRotateTreeLeftScenario_1() {
+	public void testRemoveLeafKeyInTreeWithHeight7ToMakeHeightBalancingPropertyViolationAndRotateTreeRightScenario_1() {
 		Integer[] valuesToBeInserted = new Integer[] { 400, 200, 600, 100, 300, 500, 700, 50, 150, 250, 350, 450, 550,
 				650, 750, 25, 75, 125, 175, 225, 275, 325, 775, 725, 625, 425, 12, 38, 63, 112, 212, 790, 6 };
 		insertValues(valuesToBeInserted);
@@ -320,7 +320,7 @@ public class AVLTreeTest {
 
 	@Test
 	@DisplayName("test remove leaf key in Tree with height 7 to make height balancing property violation and rotate tree right scenario-2")
-	public void testRemoveLeafKeyInTreeWithHeight7ToMakeHeightBalancingPropertyViolationAndRotateTreeLeftScenario_2() {
+	public void testRemoveLeafKeyInTreeWithHeight7ToMakeHeightBalancingPropertyViolationAndRotateTreeRightScenario_2() {
 		Integer[] valuesToBeInserted = new Integer[] { 400, 200, 600, 100, 300, 500, 700, 50, 150, 250, 350, 450, 550,
 				650, 750, 25, 75, 125, 175, 225, 275, 325, 775, 725, 625, 425, 12, 38, 63, 112, 212, 790, 6 };
 		insertValues(valuesToBeInserted);

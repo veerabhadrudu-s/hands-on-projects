@@ -250,6 +250,7 @@ public class AVLTree<K, V> {
 				AVLTreeNode<K, V> siblingChildWithLargestHeight = getLargestHeightChildNode(
 						grandParentToParentRelationType, siblingNode);
 				rotateTreeNodes(siblingChildWithLargestHeight, siblingNode, parentNode);
+				checkForHeightBalancePropertyViolationAndRotateTreeNodesAfterDeletion(parentNode, grandParentNode);
 			}
 		}
 	}
@@ -347,9 +348,8 @@ public class AVLTree<K, V> {
 			else if (heightDiffernce == 1) {
 				parentNode.height++;
 				balanceTreeAfterInsertion(node, parentNode);
-			} else if (heightDiffernce > 1)
+			} else if (heightDiffernce == 2)
 				rotateTreeNodes(travelledPathChildNode, node, parentNode);
-
 		} else if (node.height > 1)
 			rotateTreeNodes(travelledPathChildNode, node, parentNode);
 		else
