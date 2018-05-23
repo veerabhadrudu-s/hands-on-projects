@@ -302,6 +302,12 @@ public class RedBlackTreeTest {
 	@Nested
 	class RBTRandomTest {
 		private final QuickSorting quickSorting = new QuickSorting();
+		/*
+		 * private final AVLTreeSpy<Integer, String> avlTreeSpy = new
+		 * AVLTreeTest.AVLTreeSpy<>((parentKey, keyToBEComapred) ->
+		 * parentKey.equals(keyToBEComapred) ? 0 : parentKey > keyToBEComapred ? -1 : 1,
+		 * new AVLTreeInorderTraversalForValuesInAscendingOrder());
+		 */
 
 		@DisplayName("test RBT insert and delete using random numbers")
 		@RepeatedTest(2)
@@ -309,24 +315,27 @@ public class RedBlackTreeTest {
 			Random random = new Random();
 			int randomLengthCount = 2000;
 			Integer[] keysInserted = new Integer[randomLengthCount];
-			for (int i = 0, j; i < keysInserted.length; i++) {
-				j = random.nextInt();
-				keysInserted[i] = j;
-				redBlackTree.insert(j, valueOf(j));
+			for (int i = 0; i < keysInserted.length; i++) {
+				keysInserted[i] = random.nextInt();
+				// avlTreeSpy.insert(j, valueOf(j));
+				redBlackTree.insert(keysInserted[i], valueOf(keysInserted[i]));
 				Integer[] insertedListArray = Arrays.copyOfRange(keysInserted, 0, i + 1);
 				quickSorting.sort(insertedListArray);
 				assertEquals(createCsvString(insertedListArray), redBlackTree.readKeysInOrderTraversal());
+				// assertEquals(avlTreeSpy.getTreeInorderTraversalData(),
+				// redBlackTree.readKeysInOrderTraversal());
 				redBlackTree.validateBlackHeightOfTree();
 			}
 			for (int i = 0; i < keysInserted.length; i++) {
-				Integer integer = keysInserted[i];
-				redBlackTree.delete(integer);
+				redBlackTree.delete(keysInserted[i]);
+				// avlTreeSpy.remove(integer);
 				Integer[] remainingValues = Arrays.copyOfRange(keysInserted, i + 1, keysInserted.length);
 				quickSorting.sort(remainingValues);
 				assertEquals(createCsvString(remainingValues), redBlackTree.readKeysInOrderTraversal());
+				// assertEquals(avlTreeSpy.getTreeInorderTraversalData(),
+				// redBlackTree.readKeysInOrderTraversal());
 				redBlackTree.validateBlackHeightOfTree();
 			}
-
 		}
 
 		private String createCsvString(Integer[] sortedValues) {
@@ -335,7 +344,6 @@ public class RedBlackTreeTest {
 				csvString += sortedValue + ",";
 			return !csvString.isEmpty() ? csvString.substring(0, csvString.length() - 1) : null;
 		}
-
 	}
 
 	private void insertAndAssert(Integer... valuesToBeInserted) {

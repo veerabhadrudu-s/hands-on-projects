@@ -77,11 +77,8 @@ public class QuickSortingTest {
 		int randomLengthCount = 20000;
 		Integer[] arrayToBeSorted = new Integer[randomLengthCount];
 		Integer[] expectedSortedArray = new Integer[randomLengthCount];
-		for (int i = 0, j; i < arrayToBeSorted.length; i++) {
-			j = random.nextInt();
-			arrayToBeSorted[i] = j;
-			expectedSortedArray[i] = j;
-		}
+		for (int i = 0; i < arrayToBeSorted.length; i++)
+			expectedSortedArray[i] = arrayToBeSorted[i] = random.nextInt();
 		quickSorting.sortUsingRandomPivot(arrayToBeSorted);
 		Collections.sort(asList(expectedSortedArray));
 		assertArrayEquals(expectedSortedArray, arrayToBeSorted);
@@ -108,11 +105,8 @@ public class QuickSortingTest {
 		int randomLengthCount = 20000;
 		Integer[] arrayToBeSorted = new Integer[randomLengthCount];
 		Integer[] expectedSortedArray = new Integer[randomLengthCount];
-		for (int i = 0, j; i < arrayToBeSorted.length; i++) {
-			j = random.nextInt();
-			arrayToBeSorted[i] = j;
-			expectedSortedArray[i] = j;
-		}
+		for (int i = 0; i < arrayToBeSorted.length; i++)
+			expectedSortedArray[i] = arrayToBeSorted[i] = random.nextInt();
 		// logger.debug(Arrays.deepToString(arrayToBeSorted));
 		quickSorting.sort(arrayToBeSorted);
 		Collections.sort(asList(expectedSortedArray));

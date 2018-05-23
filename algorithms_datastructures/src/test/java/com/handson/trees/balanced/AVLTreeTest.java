@@ -24,7 +24,7 @@ public class AVLTreeTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		avlTreeSpy = new AVLTreeSpy<>((parentKey, keyToBEComapred) -> parentKey.equals(keyToBEComapred) ? 0
-				: parentKey > keyToBEComapred ? -1 : 1, new AVLTreeInorderTraversalForValuesInAscendingOrder());
+				: parentKey > keyToBEComapred ? -1 : 1, new AVLTreeInorderTraversalForValuesInAscendingOrderWithHeight());
 	}
 
 	@Test
@@ -566,7 +566,7 @@ public class AVLTreeTest {
 			assertEquals(Integer.toString(valueToBeSearched), avlTreeSpy.search(valueToBeSearched));
 	}
 
-	class AVLTreeSpy<K, V> extends AVLTree<K, V> {
+	static class AVLTreeSpy<K, V> extends AVLTree<K, V> {
 
 		private final EularTourTreeTraversal<String> eularTourTreeTraversal;
 

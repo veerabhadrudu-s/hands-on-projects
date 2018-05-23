@@ -10,12 +10,12 @@ import com.handson.trees.EularTourTreeTraversal;
  * @author sveera
  *
  */
-public class AVLTreeInorderTraversalForValuesInAscendingOrder extends EularTourTreeTraversal<String> {
+public class AVLTreeInorderTraversalForValuesInAscendingOrderWithHeight extends EularTourTreeTraversal<String> {
 
 	@Override
 	protected <K, V> String handleForLeafNode(BinaryTreeNode<K, V> tree) {
 		if (tree instanceof AVLTreeNode<?, ?>)
-			return (String) tree.value;
+			return (String) tree.value + "-" + ((AVLTreeNode<?, ?>) tree).height;
 		return null;
 	}
 
@@ -27,7 +27,7 @@ public class AVLTreeInorderTraversalForValuesInAscendingOrder extends EularTourT
 	@Override
 	protected <K, V> String fromBottom(BinaryTreeNode<K, V> tree) {
 		if (tree instanceof AVLTreeNode<?, ?>)
-			return (String) tree.value;
+			return (String) tree.value + "-" + ((AVLTreeNode<?, ?>) tree).height;
 		return null;
 	}
 
@@ -46,4 +46,5 @@ public class AVLTreeInorderTraversalForValuesInAscendingOrder extends EularTourT
 	private String returnEmptyForNull(String result) {
 		return result != null ? result + "," : "";
 	}
+
 }
