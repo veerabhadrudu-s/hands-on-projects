@@ -74,7 +74,7 @@ public class QuickSortingTest {
 	public void testSortingUsingRandomNumbersWithRandomPivot(RepetitionInfo repetitionInfo) {
 		logger.debug("Repeating index " + repetitionInfo.getCurrentRepetition());
 		Random random = new Random();
-		int randomLengthCount = 20000;
+		int randomLengthCount = 20000+repetitionInfo.getCurrentRepetition();
 		Integer[] arrayToBeSorted = new Integer[randomLengthCount];
 		Integer[] expectedSortedArray = new Integer[randomLengthCount];
 		for (int i = 0; i < arrayToBeSorted.length; i++)
@@ -90,7 +90,8 @@ public class QuickSortingTest {
 			"'1,2,3,4,5,6,7,8,9,10','1,2,3,4,5,6,7,8,9,10'", "'1,2,3,4,5,6,7,8,9,10','10,9,8,7,6,5,4,3,2,1'",
 			"'1,1,2,3,4,5,6,7,8,9,10','5,4,3,2,1,6,7,8,9,10,1'",
 			"'0,0,0,0,0,0,0,0,0,0,0,0,0,0,0','0,0,0,0,0,0,0,0,0,0,0,0,0,0,0'",
-			"'0,0,0,0,0,0,0,0,1,1,1,1,1,1,1','0,1,0,1,0,1,0,1,0,1,0,1,0,1,0'" })
+			"'0,0,0,0,0,0,0,0,1,1,1,1,1,1,1','0,1,0,1,0,1,0,1,0,1,0,1,0,1,0',",
+			"'0,0,0,0,0,0,0,0,0,0,0,0,0,1,1','1,0,0,0,0,0,0,0,0,0,0,0,0,0,1'" })
 	public void testSort(@ConvertWith(IntegerArrayConverter.class) Integer[] expectedSortedValues,
 			@ConvertWith(IntegerArrayConverter.class) Integer[] valuesTobeSorted) {
 		quickSorting.sort(valuesTobeSorted);
@@ -102,7 +103,7 @@ public class QuickSortingTest {
 	public void testSortingUsingRandomNumbers(RepetitionInfo repetitionInfo) {
 		logger.debug("Repeating index " + repetitionInfo.getCurrentRepetition());
 		Random random = new Random();
-		int randomLengthCount = 20000;
+		int randomLengthCount = 20000+repetitionInfo.getCurrentRepetition();
 		Integer[] arrayToBeSorted = new Integer[randomLengthCount];
 		Integer[] expectedSortedArray = new Integer[randomLengthCount];
 		for (int i = 0; i < arrayToBeSorted.length; i++)
