@@ -24,20 +24,20 @@ public class HeapSorting extends Heap<Integer> {
 	}
 
 	private void convertToHeapInternalNodes(Integer[] valuesToBeSorted) {
-		HeapInternalNode[] heapInternalNodes = new HeapInternalNode[valuesToBeSorted.length + 1];
+		HeapInternalNode[] heapInternalNodes = new HeapInternalNode[valuesToBeSorted.length + 2];
 		for (int i = 0; i < valuesToBeSorted.length; i++) {
 			HeapInternalNode heapInternalNode = new HeapInternalNode();
 			heapInternalNode.priority = valuesToBeSorted[i];
 			heapInternalNode.value = valuesToBeSorted[i];
-			heapInternalNodes[i] = heapInternalNode;
+			heapInternalNodes[i + 1] = heapInternalNode;
 		}
-		heapNodes = heapInternalNodes;
-		heapPointer = heapInternalNodes.length - 1;
+		this.heapInternalNodes = heapInternalNodes;
+		this.heapPointer = heapInternalNodes.length - 2;
 	}
 
 	private void constructHeap() {
-		for (int parentIndex = heapPointer / 2; parentIndex >= 0; parentIndex--)
-			heapify(parentIndex + 1, heapPointer, heapNodes);
+		for (int parentIndex = heapPointer / 2; parentIndex >= 1; parentIndex--)
+			downWardHeapify(heapInternalNodes, heapPointer, parentIndex);
 	}
 
 }

@@ -61,11 +61,11 @@ public class HeapSortingTest {
 	}
 
 	@DisplayName("test sorting using random numbers")
-	@RepeatedTest(1)
+	@RepeatedTest(100)
 	public void testSortingUsingRandomNumbers(RepetitionInfo repetitionInfo) {
 		logger.debug("Repeating index " + repetitionInfo.getCurrentRepetition());
 		Random random = new Random();
-		int randomLengthCount = 5000;
+		int randomLengthCount = 20000 + repetitionInfo.getCurrentRepetition();
 		Integer[] arrayToBeSorted = new Integer[randomLengthCount];
 		Integer[] expectedSortedArray = new Integer[randomLengthCount];
 		for (int i = 0; i < arrayToBeSorted.length; i++)

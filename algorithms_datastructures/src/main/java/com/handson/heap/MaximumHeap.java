@@ -26,5 +26,4 @@ public class MaximumHeap<V> extends Heap<V> {
 	public HeapNode<V> delete_maximum() {
 		return super.delete_rootElement();
 	}
-
 }
