@@ -313,7 +313,7 @@ public class RedBlackTreeTest {
 		@RepeatedTest(2)
 		public void testRBTInsertAndDeleteUsingRandomNumbers(RepetitionInfo repetitionInfo) {
 			Random random = new Random();
-			int randomLengthCount = 2000;
+			int randomLengthCount = 2000 + repetitionInfo.getCurrentRepetition();
 			Integer[] keysInserted = new Integer[randomLengthCount];
 			for (int i = 0; i < keysInserted.length; i++) {
 				keysInserted[i] = random.nextInt();
