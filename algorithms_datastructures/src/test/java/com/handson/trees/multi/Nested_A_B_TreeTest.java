@@ -3,11 +3,11 @@
  */
 package com.handson.trees.multi;
 
+import static com.handson.junit.RandomUtil.generateRandomShuffledNumbers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
-import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -18,7 +18,6 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 
 import com.handson.sorting.QuickSorting;
-import com.handson.trees.Comparator;
 
 /**
  * @author sveera
@@ -44,22 +43,13 @@ public abstract class Nested_A_B_TreeTest {
 	@RepeatedTest(10)
 	@DisplayName("test insert and search operations using random numbers")
 	public void testInsertAndSearchOperationsUsingRandomNumbers(RepetitionInfo repetitionInfo) {
-		Random random = new Random();
-		int randomLengthCount = 4000 + repetitionInfo.getCurrentRepetition();
-		Integer[] keysToBeInserted = new Integer[randomLengthCount];
-		for (int i = 0; i < keysToBeInserted.length; i++)
-			keysToBeInserted[i] = random.nextInt();
-		insertAndAssert(a_b_Tree, keysToBeInserted);
+		insertAndAssert(a_b_Tree, generateRandomShuffledNumbers(repetitionInfo, 1500));
 	}
 
 	@RepeatedTest(1)
 	@DisplayName("test insert and delete operations using random numbers")
 	public void testInsertAndDeleteOperationsUsingRandomNumbers(RepetitionInfo repetitionInfo) {
-		Random random = new Random();
-		int randomLengthCount = 1500 + repetitionInfo.getCurrentRepetition();
-		Integer[] keysToBeInserted = new Integer[randomLengthCount];
-		for (int i = 0; i < keysToBeInserted.length; i++)
-			keysToBeInserted[i] = random.nextInt();
+		Integer[] keysToBeInserted = generateRandomShuffledNumbers(repetitionInfo, 1500);
 		insertAndAssert(a_b_Tree, keysToBeInserted);
 		// logger.debug("Keys Inserted " + Arrays.deepToString(keysToBeInserted));
 		deleteAndAssert(a_b_Tree, keysToBeInserted, Arrays.copyOf(keysToBeInserted, keysToBeInserted.length));
@@ -68,11 +58,7 @@ public abstract class Nested_A_B_TreeTest {
 	@RepeatedTest(1)
 	@DisplayName("test insert and delete operations using random numbers arranged in assending order")
 	public void testInsertAndDeleteOperationsUsingRandomNumbersArrangedInAssendingOrder(RepetitionInfo repetitionInfo) {
-		Random random = new Random();
-		int randomLengthCount = 1500 + repetitionInfo.getCurrentRepetition();
-		Integer[] keysToBeInserted = new Integer[randomLengthCount];
-		for (int i = 0; i < keysToBeInserted.length; i++)
-			keysToBeInserted[i] = random.nextInt();
+		Integer[] keysToBeInserted = generateRandomShuffledNumbers(repetitionInfo, 1500);
 		insertAndAssert(a_b_Tree, keysToBeInserted);
 		Integer[] keysToBeDeleted = Arrays.copyOf(keysToBeInserted, keysToBeInserted.length);
 		quickSorting.sort(keysToBeDeleted);
@@ -129,20 +115,4 @@ public abstract class Nested_A_B_TreeTest {
 			a_b_Tree.insert(keyToBeInserted, String.valueOf(keyToBeInserted));
 	}
 
-	private class A_B_TreeSpy<K, V> extends A_B_Tree<K, V> {
-
-		private final A_B_Tree_InorderTraversal a_b_Tree_InorderTraversal;
-		private final A_B_Tree_Validator a_b_Tree_Validator;
-
-		public A_B_TreeSpy(Comparator<K> comparator, int minimumChildren, int maxChildren) {
-			super(comparator, minimumChildren, maxChildren);
-			a_b_Tree_InorderTraversal = new A_B_Tree_InorderTraversal();
-			a_b_Tree_Validator = new A_B_Tree_Validator(minimumChildren - 1);
-		}
-
-		public String getInOrderTraversalValues() {
-			a_b_Tree_Validator.validate(rootNode);
-			return a_b_Tree_InorderTraversal.travel(rootNode);
-		}
-	}
 }

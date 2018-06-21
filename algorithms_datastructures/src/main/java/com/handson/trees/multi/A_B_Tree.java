@@ -450,4 +450,9 @@ public class A_B_Tree<K, V> {
 		return node.noOfExistingKeysInNode == node.keys.length;
 	}
 
+	@Override
+	public String toString() {
+		return "A_B_Tree [a=" + minimumChildren + ", b=" + maxChildren + "]";
+	}
+
 }

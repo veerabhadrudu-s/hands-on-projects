@@ -3,12 +3,12 @@
  */
 package com.handson.trees.balanced;
 
+import static com.handson.junit.RandomUtil.generateRandomShuffledNumbers;
 import static java.lang.String.valueOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Arrays;
-import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -312,11 +312,8 @@ public class RedBlackTreeTest {
 		@DisplayName("test RBT insert and delete using random numbers")
 		@RepeatedTest(2)
 		public void testRBTInsertAndDeleteUsingRandomNumbers(RepetitionInfo repetitionInfo) {
-			Random random = new Random();
-			int randomLengthCount = 2000 + repetitionInfo.getCurrentRepetition();
-			Integer[] keysInserted = new Integer[randomLengthCount];
+			Integer[] keysInserted = generateRandomShuffledNumbers(repetitionInfo, 2000);
 			for (int i = 0; i < keysInserted.length; i++) {
-				keysInserted[i] = random.nextInt();
 				// avlTreeSpy.insert(j, valueOf(j));
 				redBlackTree.insert(keysInserted[i], valueOf(keysInserted[i]));
 				Integer[] insertedListArray = Arrays.copyOfRange(keysInserted, 0, i + 1);

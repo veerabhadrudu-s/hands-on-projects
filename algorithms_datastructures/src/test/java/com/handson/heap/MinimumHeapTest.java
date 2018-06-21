@@ -3,15 +3,18 @@
  */
 package com.handson.heap;
 
+import static com.handson.junit.RandomUtil.generateRandomShuffledNumbers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Arrays;
-import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.handson.sorting.QuickSorting;
 
@@ -21,6 +24,7 @@ import com.handson.sorting.QuickSorting;
  */
 public class MinimumHeapTest {
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private MinimumHeap<Integer> mimimumHeap;
 
 	@BeforeEach
@@ -85,13 +89,10 @@ public class MinimumHeapTest {
 	}
 
 	@RepeatedTest(1)
-	public void test_Random_Insert_getMinimum() {
+	public void test_Random_Insert_getMinimum(RepetitionInfo repetitionInfo) {
 		QuickSorting quickSorting = new QuickSorting();
-		Random random = new Random();
-		int randomLengthCount = 5000;
-		Integer[] keysInserted = new Integer[randomLengthCount];
+		Integer[] keysInserted = generateRandomShuffledNumbers(repetitionInfo, 5000);
 		for (int i = 0; i < keysInserted.length; i++) {
-			keysInserted[i] = random.nextInt();
 			mimimumHeap.insert(keysInserted[i], keysInserted[i]);
 			Integer[] insertedListArray = Arrays.copyOfRange(keysInserted, 0, i + 1);
 			quickSorting.sort(insertedListArray);
@@ -100,17 +101,14 @@ public class MinimumHeapTest {
 	}
 
 	@RepeatedTest(1)
-	public void test_Random_Insert_DeleteMinimum() {
+	public void test_Random_Insert_DeleteMinimum(RepetitionInfo repetitionInfo) {
 		QuickSorting quickSorting = new QuickSorting();
-		Random random = new Random();
-		int randomLengthCount = 5000;
-		Integer[] keysInserted = new Integer[randomLengthCount];
-		for (int i = 0; i < keysInserted.length; i++) {
-			keysInserted[i] = random.nextInt();
+		Integer[] keysInserted = generateRandomShuffledNumbers(repetitionInfo, 5000);
+		for (int i = 0; i < keysInserted.length; i++)
 			mimimumHeap.insert(keysInserted[i], keysInserted[i]);
-		}
+		logger.debug("Sorted elements " + Arrays.deepToString(keysInserted));
 		quickSorting.sort(keysInserted);
-		// logger.debug("Sorted elements " + Arrays.deepToString(keysInserted));
+
 		for (int i = 0; i < keysInserted.length; i++)
 			assertEquals(keysInserted[i].intValue(), mimimumHeap.delete_minimum().priority);
 		assertNull(mimimumHeap.minimum());

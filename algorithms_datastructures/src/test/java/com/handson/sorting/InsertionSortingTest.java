@@ -3,10 +3,12 @@
  */
 package com.handson.sorting;
 
+import static com.handson.junit.RandomUtil.generateRandomShuffledNumbers;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -85,15 +87,8 @@ public class InsertionSortingTest {
 	@RepeatedTest(1)
 	public void testSortingRandomly(RepetitionInfo repetitionInfo) {
 		logger.debug("Repeating index " + repetitionInfo.getCurrentRepetition());
-		Random random = new Random();
-		int randomLengthCount = 20000;
-		Integer[] arrayToBeSorted = new Integer[randomLengthCount];
-		Integer[] expectedSortedArray = new Integer[randomLengthCount];
-		for (int i = 0, j; i < arrayToBeSorted.length; i++) {
-			j = random.nextInt();
-			arrayToBeSorted[i] = j;
-			expectedSortedArray[i] = j;
-		}
+		Integer[] arrayToBeSorted = generateRandomShuffledNumbers(repetitionInfo, 20000);
+		Integer[] expectedSortedArray = Arrays.copyOf(arrayToBeSorted, arrayToBeSorted.length);
 		insertionSorting.sort(arrayToBeSorted);
 		Collections.sort(asList(expectedSortedArray));
 		assertArrayEquals(expectedSortedArray, arrayToBeSorted);

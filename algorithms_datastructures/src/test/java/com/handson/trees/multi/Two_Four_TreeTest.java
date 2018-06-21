@@ -3,12 +3,12 @@
  */
 package com.handson.trees.multi;
 
+import static com.handson.junit.RandomUtil.generateRandomShuffledNumbers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
-import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -291,22 +291,13 @@ public class Two_Four_TreeTest {
 	@RepeatedTest(10)
 	@DisplayName("test insert and search operations using random numbers")
 	public void testInsertAndSearchOperationsUsingRandomNumbers(RepetitionInfo repetitionInfo) {
-		Random random = new Random();
-		int randomLengthCount = 4000 + repetitionInfo.getCurrentRepetition();
-		Integer[] keysToBeInserted = new Integer[randomLengthCount];
-		for (int i = 0; i < keysToBeInserted.length; i++)
-			keysToBeInserted[i] = random.nextInt();
-		insertAndAssert(keysToBeInserted);
+		insertAndAssert(generateRandomShuffledNumbers(repetitionInfo, 4000));
 	}
 
 	@RepeatedTest(3)
 	@DisplayName("test insert and delete operations using random numbers")
 	public void testInsertAndDeleteOperationsUsingRandomNumbers(RepetitionInfo repetitionInfo) {
-		Random random = new Random();
-		int randomLengthCount = 1500 + repetitionInfo.getCurrentRepetition();
-		Integer[] keysToBeInserted = new Integer[randomLengthCount];
-		for (int i = 0; i < keysToBeInserted.length; i++)
-			keysToBeInserted[i] = random.nextInt();
+		Integer[] keysToBeInserted = generateRandomShuffledNumbers(repetitionInfo, 1500);
 		insertAndAssert(keysToBeInserted);
 		// logger.debug("Keys Inserted " + Arrays.deepToString(keysToBeInserted));
 		deleteAndAssert(keysToBeInserted, Arrays.copyOf(keysToBeInserted, keysToBeInserted.length));
@@ -315,11 +306,7 @@ public class Two_Four_TreeTest {
 	@RepeatedTest(3)
 	@DisplayName("test insert and delete operations using random numbers arranged in assending order")
 	public void testInsertAndDeleteOperationsUsingRandomNumbersArrangedInAssendingOrder(RepetitionInfo repetitionInfo) {
-		Random random = new Random();
-		int randomLengthCount = 1500 + repetitionInfo.getCurrentRepetition();
-		Integer[] keysToBeInserted = new Integer[randomLengthCount];
-		for (int i = 0; i < keysToBeInserted.length; i++)
-			keysToBeInserted[i] = random.nextInt();
+		Integer[] keysToBeInserted = generateRandomShuffledNumbers(repetitionInfo, 1500);
 		insertAndAssert(keysToBeInserted);
 		Integer[] keysToBeDeleted = Arrays.copyOf(keysToBeInserted, keysToBeInserted.length);
 		quickSorting.sort(keysToBeDeleted);

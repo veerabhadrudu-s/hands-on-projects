@@ -3,12 +3,13 @@
  */
 package com.handson.sorting;
 
+import static com.handson.junit.RandomUtil.generateRandomShuffledNumbers;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -73,12 +74,8 @@ public class QuickSortingTest {
 	@RepeatedTest(100)
 	public void testSortingUsingRandomNumbersWithRandomPivot(RepetitionInfo repetitionInfo) {
 		logger.debug("Repeating index " + repetitionInfo.getCurrentRepetition());
-		Random random = new Random();
-		int randomLengthCount = 20000+repetitionInfo.getCurrentRepetition();
-		Integer[] arrayToBeSorted = new Integer[randomLengthCount];
-		Integer[] expectedSortedArray = new Integer[randomLengthCount];
-		for (int i = 0; i < arrayToBeSorted.length; i++)
-			expectedSortedArray[i] = arrayToBeSorted[i] = random.nextInt();
+		Integer[] arrayToBeSorted = generateRandomShuffledNumbers(repetitionInfo, 20000);
+		Integer[] expectedSortedArray = Arrays.copyOf(arrayToBeSorted, arrayToBeSorted.length);
 		quickSorting.sortUsingRandomPivot(arrayToBeSorted);
 		Collections.sort(asList(expectedSortedArray));
 		assertArrayEquals(expectedSortedArray, arrayToBeSorted);
@@ -102,12 +99,8 @@ public class QuickSortingTest {
 	@RepeatedTest(100)
 	public void testSortingUsingRandomNumbers(RepetitionInfo repetitionInfo) {
 		logger.debug("Repeating index " + repetitionInfo.getCurrentRepetition());
-		Random random = new Random();
-		int randomLengthCount = 20000+repetitionInfo.getCurrentRepetition();
-		Integer[] arrayToBeSorted = new Integer[randomLengthCount];
-		Integer[] expectedSortedArray = new Integer[randomLengthCount];
-		for (int i = 0; i < arrayToBeSorted.length; i++)
-			expectedSortedArray[i] = arrayToBeSorted[i] = random.nextInt();
+		Integer[] arrayToBeSorted = generateRandomShuffledNumbers(repetitionInfo, 20000);
+		Integer[] expectedSortedArray = Arrays.copyOf(arrayToBeSorted, arrayToBeSorted.length);
 		// logger.debug(Arrays.deepToString(arrayToBeSorted));
 		quickSorting.sort(arrayToBeSorted);
 		Collections.sort(asList(expectedSortedArray));
