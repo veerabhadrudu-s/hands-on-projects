@@ -25,6 +25,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+/**
+ * @author veera
+ *
+ */
 public class HashCodeGeneration {
 
 	private static final Logger logger = LoggerFactory.getLogger(HashCodeGeneration.class.getClass());
