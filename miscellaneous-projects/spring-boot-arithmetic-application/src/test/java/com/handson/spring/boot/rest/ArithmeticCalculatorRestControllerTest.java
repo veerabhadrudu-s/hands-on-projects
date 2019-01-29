@@ -4,18 +4,24 @@
 package com.handson.spring.boot.rest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -34,28 +40,33 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * This unit test case is intentionally been created using xml based
  * configuration.
  * 
- * @SpringJUnitWebConfig annotation is extending below annotations. Either below
- * 2 annotations or @SpringJUnitWebConfig can be used to create Spring MVC
- * Testcase.
+ * @SpringJUnitWebConfig annotation is extending 3 annotations. Either below 3
+ * annotations or @SpringJUnitWebConfig
+ * and @ExtendWith(RestDocumentationExtension.class) can be used to create
+ * Spring MVC Test case.
  * 
- * @ExtendWith(SpringExtension.class)
+ * @ExtendWith(value = SpringExtension.class)
+ * 
+ * @ContextConfiguration
  * 
  * @WebAppConfiguration
  */
+
 @SpringJUnitWebConfig
 @ContextConfiguration("classpath:test-rest-spring-config.xml")
 @EnableAutoConfiguration
+@ExtendWith(RestDocumentationExtension.class)
 public class ArithmeticCalculatorRestControllerTest {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private MockMvc mockMvc;
 	private final ObjectMapper objectMapper = new ObjectMapper();
-	@Autowired
-	private WebApplicationContext webApplicationContext;
 
 	@BeforeEach
-	public void setUp() throws Exception {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+	public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation)
+			throws Exception {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation)).build();
 	}
 
 	@Test
@@ -78,7 +89,7 @@ public class ArithmeticCalculatorRestControllerTest {
 					assertEquals("{\"firstOperand\":1.0,\"secondOperand\":2.0,\"operation\":\"+\",\"result\":3.0}",
 							result.getResponse().getContentAsString(),
 							"Expected and Actual Response Messages are not equal");
-				});
+				}).andDo(document("index"));
 	}
 
 	@CsvSource({ "2,5,*,10.0", "50,10,/,5.0", "45,5,-,40.0" })
@@ -97,7 +108,7 @@ public class ArithmeticCalculatorRestControllerTest {
 									firstOperand, secondOperand, operation, expectedResult),
 							result.getResponse().getContentAsString(),
 							"Expected and Actual Response Messages are not equal");
-				});
+				}).andDo(document("more-examples-" + new Random().nextInt()));
 	}
 
 	private String constructInputRequestJson(double firstOparand, double secondOparand, String operation)
