@@ -1,0 +1,42 @@
+= Arithmetic Application Reference Documentation
+Veerabhadrudu
+:toc: left
+:sectnums:
+
+== Introduction
+This is a spring boot Arithmetic Operation REST API application.It performs arithmetic operations over rest interface.
+
+== Arithmetic Calculator API
+
+This api supports POST REST Request.
+
+=== Get Info
+Gives information about this Application.
+
+==== Sample Request
+include::{snippets}/test-get-info/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/test-get-info/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/test-get-info/curl-request.adoc[]
+
+=== Post Operation
+This operation is used to make API call to perform arithmetic operation.
+
+==== Sample Request
+include::{snippets}/test-perform-arithematic-operation-operation-and-except-result/http-request.adoc[]
+
+==== Request Body
+include::{snippets}/test-perform-arithematic-operation-operation-and-except-result/request-body.adoc[]
+
+==== Sample Response
+include::{snippets}/test-perform-arithematic-operation-operation-and-except-result/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/test-perform-arithematic-operation-operation-and-except-result/curl-request.adoc[]
+
+
+
+

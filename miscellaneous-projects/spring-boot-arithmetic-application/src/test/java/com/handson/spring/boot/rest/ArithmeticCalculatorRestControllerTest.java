@@ -5,10 +5,12 @@ package com.handson.spring.boot.rest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,12 +21,15 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultHandler;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -45,7 +50,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * and @ExtendWith(RestDocumentationExtension.class) can be used to create
  * Spring MVC Test case.
  * 
- * @ExtendWith(value = SpringExtension.class)
+ * @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
  * 
  * @ContextConfiguration
  * 
@@ -58,6 +63,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ExtendWith(RestDocumentationExtension.class)
 public class ArithmeticCalculatorRestControllerTest {
 
+	private static final String PERFORM_ARTH_OPERATION = "/performArthOperation";
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private MockMvc mockMvc;
 	private final ObjectMapper objectMapper = new ObjectMapper();
@@ -66,30 +72,35 @@ public class ArithmeticCalculatorRestControllerTest {
 	public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation)
 			throws Exception {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation)).build();
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation))
+				.alwaysDo(
+						document("{method-name}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+				.build();
+	}
+
+	@Test
+	@DisplayName("test get Info and expect response")
+	public void testGetInfo() throws Exception {
+		this.mockMvc.perform(get("/").accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andDo((response) -> {
+					assertEquals("{\"info\":\"This is a Arithmetic Calculator Application\"}",
+							response.getResponse().getContentAsString());
+				});
+
 	}
 
 	@Test
 	@DisplayName("test Perform Arithematic Operation With Invalid Operator And Except Exception")
 	public void testPerformArithematicOperationWithInvalidOperatorAndExceptException() throws Exception {
-		this.mockMvc.perform(post("/performArthOperation").content(constructInputRequestJson(1, 2, "&")))
-				.andExpect(status().isBadRequest()).andDo((result) -> {
-					logger.info((result.getResponse().getContentAsString()));
-					assertEquals(getExpectedErrorMessage(), result.getResponse().getContentAsString(),
-							"Expected and Actual Response Messages are not equal");
-				});
+		this.mockMvc.perform(constructPostRequest(1, 2, "&")).andExpect(status().isBadRequest())
+				.andDo(createResultHandlerErrorValidator());
 	}
 
 	@Test
 	@DisplayName("test Perform Arithematic Operation With Add Operator And Except Result")
 	public void testPerformArithematicOperationWithAddOperatorAndExceptResult() throws Exception {
-		this.mockMvc.perform(post("/performArthOperation").content(constructInputRequestJson(1, 2, "+")))
-				.andExpect(status().isOk()).andDo((result) -> {
-					logger.info((result.getResponse().getContentAsString()));
-					assertEquals("{\"firstOperand\":1.0,\"secondOperand\":2.0,\"operation\":\"+\",\"result\":3.0}",
-							result.getResponse().getContentAsString(),
-							"Expected and Actual Response Messages are not equal");
-				}).andDo(document("index"));
+		this.mockMvc.perform(constructPostRequest(1, 2, "+")).andExpect(status().isOk())
+				.andDo(createResultHandlerValidator(1, 2, "+", "3.0"));
 	}
 
 	@CsvSource({ "2,5,*,10.0", "50,10,/,5.0", "45,5,-,40.0" })
@@ -97,18 +108,31 @@ public class ArithmeticCalculatorRestControllerTest {
 	@ParameterizedTest(name = "with firstOperand= {0} , secondOperand= {1} , operation= {2} and expected-result is {3} ")
 	public void testPerformArithematicOperationOperationAndExceptResult(double firstOperand, double secondOperand,
 			String operation, String expectedResult) throws Exception {
-		this.mockMvc
-				.perform(post("/performArthOperation")
-						.content(constructInputRequestJson(firstOperand, secondOperand, operation)))
-				.andExpect(status().isOk()).andDo((result) -> {
-					logger.info((result.getResponse().getContentAsString()));
-					assertEquals(
-							String.format(
-									"{\"firstOperand\":%s,\"secondOperand\":%s,\"operation\":\"%s\",\"result\":%s}",
-									firstOperand, secondOperand, operation, expectedResult),
-							result.getResponse().getContentAsString(),
-							"Expected and Actual Response Messages are not equal");
-				}).andDo(document("more-examples-" + new Random().nextInt()));
+		this.mockMvc.perform(constructPostRequest(firstOperand, secondOperand, operation)).andExpect(status().isOk())
+				.andDo(createResultHandlerValidator(firstOperand, secondOperand, operation, expectedResult));
+	}
+
+	private MockHttpServletRequestBuilder constructPostRequest(double firstOperand, double secondOperand,
+			String operation) throws JsonProcessingException {
+		return post(PERFORM_ARTH_OPERATION).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
+				.content(constructInputRequestJson(firstOperand, secondOperand, operation));
+	}
+
+	private ResultHandler createResultHandlerErrorValidator() {
+		return (result) -> {
+			assertEquals(getExpectedErrorMessage(), result.getResponse().getContentAsString(),
+					"Expected and Actual Response Messages are not equal");
+		};
+	}
+
+	private ResultHandler createResultHandlerValidator(double firstOperand, double secondOperand, String operation,
+			String expectedResult) {
+		return (result) -> {
+			assertEquals(
+					String.format("{\"firstOperand\":%s,\"secondOperand\":%s,\"operation\":\"%s\",\"result\":%s}",
+							firstOperand, secondOperand, operation, expectedResult),
+					result.getResponse().getContentAsString(), "Expected and Actual Response Messages are not equal");
+		};
 	}
 
 	private String constructInputRequestJson(double firstOparand, double secondOparand, String operation)

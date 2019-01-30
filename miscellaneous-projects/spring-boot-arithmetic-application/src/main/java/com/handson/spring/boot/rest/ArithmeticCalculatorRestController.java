@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -31,19 +32,25 @@ import com.handson.spring.boot.arithmetic.ArithmeticOperationNotSupportedExcepti
 @RestController
 public class ArithmeticCalculatorRestController {
 
+	private static final String THIS_IS_A_ARITHMETIC_CALCULATOR_APPLICATION = "This is a Arithmetic Calculator Application";
+	private static final String PERFORM_ARTH_OPERATION = "/performArthOperation";
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private final ArithmeticCalculator arithmeticCalculator;
 
-	/**
-	 * @param arithmeticCalculator
-	 */
 	@Autowired
 	public ArithmeticCalculatorRestController(ArithmeticCalculator arithmeticCalculator) {
 		super();
 		this.arithmeticCalculator = arithmeticCalculator;
 	}
 
-	@RequestMapping("/performArthOperation")
+	@RequestMapping(value = "/", method = RequestMethod.GET, consumes = "application/json", produces = {
+			"application/json" })
+	public String getInfo() {
+		return "{\"info\":\"" + THIS_IS_A_ARITHMETIC_CALCULATOR_APPLICATION + "\"}";
+	}
+
+	@RequestMapping(value = PERFORM_ARTH_OPERATION, method = RequestMethod.POST, consumes = "application/json", produces = {
+			"application/json" })
 	@JsonView(Views.Public.class)
 	public OutputResult performArithematicOperation(@RequestBody String requestBody)
 			throws JsonParseException, JsonMappingException, IOException {
@@ -54,10 +61,6 @@ public class ArithmeticCalculatorRestController {
 						inputRequest.getFirstOperand(), inputRequest.getSecondOperand(), inputRequest.getOperation()));
 	}
 
-	/**
-	 * @param performArithematicOperation
-	 * @return
-	 */
 	private OutputResult constructOutputresult(double firstOperand, double secondOperand, String operation,
 			double result) {
 		return new OutputResult(firstOperand, secondOperand, operation, result);
@@ -86,11 +89,6 @@ public class ArithmeticCalculatorRestController {
 			super();
 		}
 
-		/**
-		 * @param firstOperand
-		 * @param secondOperand
-		 * @param operation
-		 */
 		public InputRequest(double firstOperand, double secondOperand, String operation) {
 			super();
 			this.firstOperand = firstOperand;
@@ -135,12 +133,6 @@ public class ArithmeticCalculatorRestController {
 		@JsonView(Views.Public.class)
 		private final double result;
 
-		/**
-		 * @param firstOperand
-		 * @param secondOperand
-		 * @param operation
-		 * @param result
-		 */
 		public OutputResult(double firstOperand, double secondOperand, String operation, double result) {
 			super();
 			this.firstOperand = firstOperand;
@@ -178,9 +170,6 @@ public class ArithmeticCalculatorRestController {
 		@JsonView(Views.Public.class)
 		private final String errorMessage;
 
-		/**
-		 * @param errorMessage
-		 */
 		public ErrorResult(String errorMessage) {
 			super();
 			this.errorMessage = errorMessage;
