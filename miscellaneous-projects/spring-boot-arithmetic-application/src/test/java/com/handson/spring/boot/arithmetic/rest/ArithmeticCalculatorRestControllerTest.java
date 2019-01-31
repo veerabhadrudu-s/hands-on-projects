@@ -33,6 +33,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.handson.spring.boot.arithmetic.rest.messages.InputRequest;
 import com.handson.spring.boot.configuration.ArithmeticApplicationSpringConfiguration;
 
 /**
@@ -136,7 +137,7 @@ public class ArithmeticCalculatorRestControllerTest {
 	private String constructInputRequestJson(double firstOparand, double secondOparand, String operation)
 			throws JsonProcessingException {
 		return objectMapper.writeValueAsString(
-				new ArithmeticCalculatorRestController.InputRequest(firstOparand, secondOparand, operation));
+				new InputRequest(firstOparand, secondOparand, operation));
 	}
 
 	private String getExpectedErrorMessage() {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.handson.spring.boot.arithmetic.rest;
+package com.handson.spring.boot.arithmetic.rest.messages;
 
 /**
  * @author sveera

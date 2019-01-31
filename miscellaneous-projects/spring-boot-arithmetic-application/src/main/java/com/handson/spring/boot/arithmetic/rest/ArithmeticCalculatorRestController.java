@@ -24,6 +24,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.handson.spring.boot.arithmetic.ArithmeticCalculator;
 import com.handson.spring.boot.arithmetic.ArithmeticOperationNotSupportedException;
+import com.handson.spring.boot.arithmetic.rest.messages.ErrorResult;
+import com.handson.spring.boot.arithmetic.rest.messages.InputRequest;
+import com.handson.spring.boot.arithmetic.rest.messages.OutputResult;
+import com.handson.spring.boot.arithmetic.rest.messages.Views;
 
 /**
  * @author sveera
@@ -76,109 +80,6 @@ public class ArithmeticCalculatorRestController {
 			httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		return throwable instanceof ArithmeticOperationNotSupportedException ? new ErrorResult(throwable.getMessage())
 				: new ErrorResult("Oops! Something went wrong check server logs");
-	}
-
-	public static class InputRequest {
-
-		private double firstOperand;
-		private double secondOperand;
-		private String operation;
-
-		public InputRequest() {
-			super();
-		}
-
-		public InputRequest(double firstOperand, double secondOperand, String operation) {
-			super();
-			this.firstOperand = firstOperand;
-			this.secondOperand = secondOperand;
-			this.operation = operation;
-		}
-
-		public double getFirstOperand() {
-			return firstOperand;
-		}
-
-		public void setFirstOperand(double firstOperand) {
-			this.firstOperand = firstOperand;
-		}
-
-		public double getSecondOperand() {
-			return secondOperand;
-		}
-
-		public void setSecondOperand(double secondOperand) {
-			this.secondOperand = secondOperand;
-		}
-
-		public String getOperation() {
-			return operation;
-		}
-
-		public void setOperation(String operation) {
-			this.operation = operation;
-		}
-
-	}
-
-	public class OutputResult {
-
-		@JsonView(Views.Public.class)
-		private final double firstOperand;
-		@JsonView(Views.Public.class)
-		private final double secondOperand;
-		@JsonView(Views.Public.class)
-		private final String operation;
-		@JsonView(Views.Public.class)
-		private final double result;
-
-		public OutputResult(double firstOperand, double secondOperand, String operation, double result) {
-			super();
-			this.firstOperand = firstOperand;
-			this.secondOperand = secondOperand;
-			this.operation = operation;
-			this.result = result;
-		}
-
-		public double getFirstOperand() {
-			return firstOperand;
-		}
-
-		public double getSecondOperand() {
-			return secondOperand;
-		}
-
-		public String getOperation() {
-			return operation;
-		}
-
-		public double getResult() {
-			return result;
-		}
-
-		@Override
-		public String toString() {
-			return "OutputResult [firstOperand=" + firstOperand + ", secondOperand=" + secondOperand + ", operation="
-					+ operation + ", result=" + result + "]";
-		}
-
-	}
-
-	public class ErrorResult {
-
-		@JsonView(Views.Public.class)
-		private final String errorMessage;
-
-		public ErrorResult(String errorMessage) {
-			super();
-			this.errorMessage = errorMessage;
-		}
-
-		@Override
-		public String toString() {
-			return "ErrorResult [errorMessage=" + errorMessage + "]";
-		}
-
 	}
 
 }
