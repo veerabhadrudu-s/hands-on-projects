@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.handson.spring.boot.rest;
+package com.handson.spring.boot.arithmetic.rest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -18,8 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
@@ -35,6 +33,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.handson.spring.boot.configuration.ArithmeticApplicationSpringConfiguration;
 
 /**
  * @author sveera
@@ -42,29 +41,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 
 /*
- * This unit test case is intentionally been created using xml based
- * configuration.
- * 
- * @SpringJUnitWebConfig annotation is extending 3 annotations. Either below 3
- * annotations or @SpringJUnitWebConfig
- * and @ExtendWith(RestDocumentationExtension.class) can be used to create
- * Spring MVC Test case.
+ * @SpringJUnitWebConfig annotation is extending 3 annotations.
  * 
  * @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
  * 
  * @ContextConfiguration
  * 
- * @WebAppConfiguration
+ * @WebAppConfiguration . Either above 3 annotations or @SpringJUnitWebConfig
+ * and @ExtendWith(RestDocumentationExtension.class) can be used to create
+ * Spring MVC Test case.
+ *
+ * Migrated from Spring XML based configuration to Spring bean based
+ * configuration. XML based configuration is still kept for reference purpose.
  */
 
 @SpringJUnitWebConfig
-@ContextConfiguration("classpath:test-rest-spring-config.xml")
-@EnableAutoConfiguration
 @ExtendWith(RestDocumentationExtension.class)
+@EnableAutoConfiguration
+//@ContextConfiguration("classpath:test-rest-spring-config.xml")
+@ContextConfiguration(classes = { ArithmeticApplicationSpringConfiguration.class })
 public class ArithmeticCalculatorRestControllerTest {
 
 	private static final String PERFORM_ARTH_OPERATION = "/performArthOperation";
-	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private MockMvc mockMvc;
 	private final ObjectMapper objectMapper = new ObjectMapper();
 

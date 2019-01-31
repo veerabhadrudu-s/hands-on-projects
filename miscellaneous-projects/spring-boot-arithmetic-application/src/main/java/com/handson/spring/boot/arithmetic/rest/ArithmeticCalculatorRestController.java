@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.handson.spring.boot.rest;
+package com.handson.spring.boot.arithmetic.rest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,8 +43,7 @@ public class ArithmeticCalculatorRestController {
 		this.arithmeticCalculator = arithmeticCalculator;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET, consumes = "application/json", produces = {
-			"application/json" })
+	@RequestMapping(value = "/", method = RequestMethod.GET, produces = { "application/json" })
 	public String getInfo() {
 		return "{\"info\":\"" + THIS_IS_A_ARITHMETIC_CALCULATOR_APPLICATION + "\"}";
 	}

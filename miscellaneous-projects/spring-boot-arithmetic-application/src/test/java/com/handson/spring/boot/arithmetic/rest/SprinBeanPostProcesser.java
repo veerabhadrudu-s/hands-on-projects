@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.handson.spring.boot.rest;
+package com.handson.spring.boot.arithmetic.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
