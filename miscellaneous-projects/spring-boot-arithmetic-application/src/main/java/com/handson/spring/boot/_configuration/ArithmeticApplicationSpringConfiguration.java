@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.handson.spring.boot.configuration;
+package com.handson.spring.boot._configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

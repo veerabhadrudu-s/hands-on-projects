@@ -78,10 +78,6 @@ public class ArithmeticSpringBootApplicationTest {
 				responseEntity.getBody(), "Expected and Actual responses are not equal.");
 	}
 
-	private String getExpectedErrorMessage() {
-		return "{\"errorMessage\":\"Supported Operations at present are [*, +, -, /]\"}";
-	}
-
 	private ResponseEntity<String> performArithmeticOperationRequest(int firstOperand, int secondOperand,
 			String operation) throws URISyntaxException, JsonProcessingException {
 		RequestEntity<String> requestEntity = constructRequestEntity(
@@ -104,4 +100,7 @@ public class ArithmeticSpringBootApplicationTest {
 				firstOperand, secondOperand, operation, expectedResult);
 	}
 
+	private String getExpectedErrorMessage() {
+		return "{\"errorMessage\":\"Supported Operations at present are [*, +, -, /]\"}";
+	}
 }

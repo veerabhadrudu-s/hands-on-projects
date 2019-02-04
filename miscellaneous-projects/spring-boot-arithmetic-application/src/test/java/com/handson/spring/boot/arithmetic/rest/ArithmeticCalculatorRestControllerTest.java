@@ -23,7 +23,6 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultHandler;
@@ -33,8 +32,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.handson.spring.boot._configuration.ArithmeticApplicationSpringConfiguration;
 import com.handson.spring.boot.arithmetic.rest.messages.InputRequest;
-import com.handson.spring.boot.configuration.ArithmeticApplicationSpringConfiguration;
 
 /**
  * @author sveera
@@ -56,11 +55,10 @@ import com.handson.spring.boot.configuration.ArithmeticApplicationSpringConfigur
  * configuration. XML based configuration is still kept for reference purpose.
  */
 
-@SpringJUnitWebConfig
+@SpringJUnitWebConfig(classes={ ArithmeticApplicationSpringConfiguration.class })
 @ExtendWith(RestDocumentationExtension.class)
 @EnableAutoConfiguration
 //@ContextConfiguration("classpath:test-rest-spring-config.xml")
-@ContextConfiguration(classes = { ArithmeticApplicationSpringConfiguration.class })
 public class ArithmeticCalculatorRestControllerTest {
 
 	private static final String PERFORM_ARTH_OPERATION = "/performArthOperation";

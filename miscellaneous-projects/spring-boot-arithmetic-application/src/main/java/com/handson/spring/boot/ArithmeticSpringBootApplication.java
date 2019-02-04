@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @author sveera
@@ -21,8 +22,8 @@ import org.springframework.context.ApplicationListener;
  * configuration. XML based configuration is still kept for reference purpose.
  */
 @SpringBootApplication
-//@SpringBootApplication(scanBasePackages = { "com.handson.spring.boot.rest" })
-//@ImportResource(locations = { "classpath:spring-config.xml" })
+// @SpringBootApplication(scanBasePackages = { "com.handson.spring.boot.rest" })
+// @ImportResource(locations = { "classpath:spring-config.xml" })
 public class ArithmeticSpringBootApplication {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArithmeticSpringBootApplication.class);
@@ -40,7 +41,9 @@ public class ArithmeticSpringBootApplication {
 		springApplication.setBannerMode(Banner.Mode.OFF);
 		springApplication.addListeners(createApplicaitonListener());
 		springApplication.setWebApplicationType(SERVLET);
-		springApplication.run(args);
+		ConfigurableApplicationContext configurableApplicationContext = springApplication.run(args);
+		logger.info(String.format("Instance of %s is %s", ConfigurableApplicationContext.class.getSimpleName(),
+				configurableApplicationContext.getClass().getSimpleName()));
 	}
 
 	/**
