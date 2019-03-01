@@ -13,6 +13,15 @@
 	</properties>
 
 	<dependencies>
+		<!-- With both jars code works fine but first one is heavy jar -->
+		<!-- <dependency> <groupId>org.wildfly</groupId> <artifactId>wildfly-client-all</artifactId> 
+			<version>16.0.0.Final</version> </dependency> -->
+		<dependency>
+			<groupId>org.jboss.remotingjmx</groupId>
+			<artifactId>remoting-jmx</artifactId>
+			<version>3.0.1.Final</version>
+		</dependency>
+
 		<!-- Test -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
