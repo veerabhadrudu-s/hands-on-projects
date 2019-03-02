@@ -1,0 +1,4 @@
+
+Sample Example to Run executable jar from command line :-
+
+java -jar jmx-cli-0.0.1-SNAPSHOT-shaded.jar -c "service:jmx:remote+http://192.168.128.109:9990" -u admin -p password -d java.lang -t Memory -a FreeHeapMemory,FreeNonHeapMemory,HeapMemoryUsage,HeapMemoryUsagePercent,NonHeapMemoryUsage,ObjectName,ObjectPendingFinalizationCount
