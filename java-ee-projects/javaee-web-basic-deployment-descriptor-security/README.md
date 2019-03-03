@@ -16,7 +16,7 @@
 * Build the application using ***mvn clean package*** command.
 * Deploy the application into the server and start testing the application using below 2 url's using both users created in Prerequisites step
 
-http://IP_ADDRESS:PORT/javaee-web-basic-deployment-descriptor-security/GreetingsServlet
+http://IP_ADDRESS:PORT/javaee-web-basic-deployment-descriptor-security/GreetingsServlet  
 http://IP_ADDRESS:PORT/javaee-web-basic-deployment-descriptor-security/AdminServlet
 
 ## Observation you can make out during testing of the application.
