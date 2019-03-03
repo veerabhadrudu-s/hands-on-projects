@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee webapp_4_0.xsd"
+	version="4.0">
+	<servlet>
+		<description>This is a Greeting Servlet</description>
+		<display-name>GreetingsServlet</display-name>
+		<servlet-name>GreetingsServlet</servlet-name>
+		<servlet-class>com.handson.javaee.web.GreetingsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GreetingsServlet</servlet-name>
+		<url-pattern>/GreetingsServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description>This is a Admin Servlet</description>
+		<display-name>AdminServlet</display-name>
+		<servlet-name>AdminServlet</servlet-name>
+		<servlet-class>com.handson.javaee.web.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>/AdminServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- Web Application security starts from here -->
+	<security-constraint>
+		<!-- web-resource-collection tag allows us to define resources that need 
+			to be protected.We can use wildcard's such as *.For more on this refer servlet 
+			specification. -->
+		<web-resource-collection>
+			<url-pattern>/GreetingsServlet</url-pattern>
+		</web-resource-collection>
+		<!-- auth-constraint tag allows us to define allowed roles to access above 
+			defined resources -->
+		<auth-constraint>
+			<role-name>app-admin</role-name>
+			<role-name>app-user-role</role-name>
+		</auth-constraint>
+		<!-- user-data-constraint - CONFIDENTIAL enforces to redirect http requests 
+			traffic to https to achieve data encryption on the network -->
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/AdminServlet</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>app-admin</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<!-- <realm-name>ApplicationRealm</realm-name> -->
+	</login-config>
+</web-app>
