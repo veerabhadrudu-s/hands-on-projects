@@ -1,0 +1,2 @@
+#Configuration to load listener
+org.springframework.context.ApplicationListener=com.handson.spring.listener.ApplicationEventListener
