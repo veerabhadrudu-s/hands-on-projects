@@ -9,7 +9,7 @@ import javax.persistence.Embeddable;
  * @author sveera
  *
  */
-@Embeddable
+//@Embeddable
 public class Address {
 
 	private int userId;

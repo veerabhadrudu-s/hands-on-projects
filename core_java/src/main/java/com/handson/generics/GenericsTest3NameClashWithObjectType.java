@@ -7,11 +7,12 @@ package com.handson.generics;
  * @author veera
  *
  */
-public class GenericsTest2NameClashWithObjectType {
+public class GenericsTest3NameClashWithObjectType {
 
 	/*
 	 * Below code will fail to compile due to method name clash with Object Type
-	 * after erasure
+	 * after erasure.We cann't override Object methods using generics, this will
+	 * causes name clashes after erasure.
 	 */
 	/*
 	 * public class Twin<T> {

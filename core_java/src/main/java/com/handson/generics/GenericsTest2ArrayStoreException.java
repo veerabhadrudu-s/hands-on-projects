@@ -13,6 +13,10 @@ public class GenericsTest2ArrayStoreException {
 
 	public static void main(String args[]) {
 
+		/*
+		 * This example throws ArrayStoreException as arrays in java remembers their
+		 * initial created type
+		 */
 		DummyClass[] ints = new DummyClass[10];
 		Object[] obj = ints;
 		obj[4] = "";

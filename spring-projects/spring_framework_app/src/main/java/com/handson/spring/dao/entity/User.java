@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
  * @author sveera
  *
  */
-@Entity
+//@Entity
 public class User {
 
 	@Id
