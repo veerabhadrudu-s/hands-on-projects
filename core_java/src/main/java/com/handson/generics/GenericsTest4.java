@@ -17,7 +17,7 @@ public class GenericsTest4 {
 		T1 doReverseOperation(T2 t);
 	}
 
-	// This will become generic code implementation.
+	// This is a generic code implementation.
 	public class DemoClass1 implements DemoInterface<String, Integer> {
 
 		@Override
@@ -31,7 +31,7 @@ public class GenericsTest4 {
 		}
 	}
 
-	// This will become raw type code implementation.
+	// This is a raw type code implementation.
 	public class DemoClass2 implements DemoInterface {
 
 		@Override
