@@ -4,7 +4,6 @@
 package com.handson.generics;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author veera
@@ -22,12 +21,6 @@ public class GenericsTest2ArrayStoreException {
 		Object[] obj = dummies;
 		obj[4] = "";
 
-		List<Integer> ints = null;
-		List<Number> numbers = null;
-		List<Object> objs = null;
-		consumeList(ints);
-		consumeList(numbers);
-		consumeList(objs);
 	}
 
 	private static class DummyClass implements Serializable, Cloneable {
@@ -36,8 +29,5 @@ public class GenericsTest2ArrayStoreException {
 
 	}
 
-	private static void consumeList(List<? super Integer> superList) {
-
-	}
 
 }
