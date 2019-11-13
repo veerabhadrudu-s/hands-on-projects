@@ -32,5 +32,28 @@ public class GenericsTest5 {
 		// numbers1.add(1);
 		Number value = numbers1.get(0);
 
+		/*
+		 * Below example is related to bounded type using extends.Above examples are
+		 * related to upper bound and lower bound examples using wildcard(?).Be carefull
+		 * observe the differences between this and above 2 examples.
+		 */
+		ExtendsTest<Number> extendsTest = new ExtendsTest<Number>();
+		extendsTest.getValue();
+		extendsTest.setValue(Integer.valueOf(0));
+
+	}
+
+	static class ExtendsTest<T extends Number> {
+
+		private T value;
+
+		public T getValue() {
+			return value;
+		}
+
+		public void setValue(T value) {
+			this.value = value;
+		}
+
 	}
 }
