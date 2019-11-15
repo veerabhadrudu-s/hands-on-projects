@@ -17,7 +17,7 @@ public class StreamsExample2 {
 
 	/*
 	 * After calling terminal operation's(forEach,count,min,max etc.) on stream you
-	 * cann't reuse that stream any more
+	 * cann't reuse that stream any more.
 	 */
 	public static void main(String[] args) {
 		List<String> names = new ArrayList<String>();

@@ -17,7 +17,7 @@ public class StreamsExample3 {
 
 	/*
 	 * Stream is a data structure which will point/refer to the original collection
-	 * created it.Below example shows that, after creating stream even if we modify
+	 * created it.Below example shows , after creating stream even if we modify
 	 * original collection,those changes are reflected in stream.
 	 */
 	public static void main(String[] args) {
