@@ -13,22 +13,16 @@ import java.util.stream.Stream;
  * @author veera
  *
  */
-public class StreamsExample2 {
+public class StreamsExample01 {
 
-	/*
-	 * After calling terminal operation's(forEach,count,min,max etc.) on stream you
-	 * cann't reuse that stream any more.
-	 */
+	/* This is a simple stream example */
 	public static void main(String[] args) {
 		List<String> names = new ArrayList<String>();
 		names.add("Veera");
 		names.add("Venkatesh");
 		names.add("Gopal");
 		Stream<String> namesStream = names.stream();
-		out.println("Printing stream elements 1st time");
-		namesStream.forEach(out::println);
-		out.println();
-		out.println("Printing stream elements 2nd time");
+		out.println("Printing stream elements");
 		namesStream.forEach(out::println);
 	}
 

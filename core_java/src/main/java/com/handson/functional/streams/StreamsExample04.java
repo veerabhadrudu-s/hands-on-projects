@@ -11,7 +11,7 @@ import java.util.stream.Stream;
  * @author veera
  *
  */
-public class StreamsExample4 {
+public class StreamsExample04 {
 
 	/*
 	 * Using Stream.generate method to create infinite random number generator.

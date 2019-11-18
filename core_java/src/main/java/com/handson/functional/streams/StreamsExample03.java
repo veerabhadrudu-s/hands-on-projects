@@ -13,16 +13,21 @@ import java.util.stream.Stream;
  * @author veera
  *
  */
-public class StreamsExample1 {
+public class StreamsExample03 {
 
-	/* This is a simple stream example */
+	/*
+	 * Stream is a data structure which will point/refer to the original collection
+	 * created it.Below example shows , after creating stream even if we modify
+	 * original collection,those changes are reflected in stream.
+	 */
 	public static void main(String[] args) {
 		List<String> names = new ArrayList<String>();
 		names.add("Veera");
 		names.add("Venkatesh");
 		names.add("Gopal");
 		Stream<String> namesStream = names.stream();
-		out.println("Printing stream elements");
+		names.add("Rahul");
+		out.println("Printing stream elements after modifiying original list");
 		namesStream.forEach(out::println);
 	}
 

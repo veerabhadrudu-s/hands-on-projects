@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * @author veera
  *
  */
-public class StreamsExample5 {
+public class StreamsExample05 {
 
 	/*
 	 * New immutable stream get's created when we run non-terminal operations on

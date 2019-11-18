@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * @author veera
  *
  */
-public class StreamsExample6 {
+public class StreamsExample06 {
 
 	/*
 	 * Stream.flatmap example

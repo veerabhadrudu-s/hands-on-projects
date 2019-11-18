@@ -13,12 +13,11 @@ import java.util.stream.Stream;
  * @author veera
  *
  */
-public class StreamsExample3 {
+public class StreamsExample02 {
 
 	/*
-	 * Stream is a data structure which will point/refer to the original collection
-	 * created it.Below example shows , after creating stream even if we modify
-	 * original collection,those changes are reflected in stream.
+	 * After calling terminal operation's(forEach,count,min,max etc.) on stream you
+	 * cann't reuse that stream any more.
 	 */
 	public static void main(String[] args) {
 		List<String> names = new ArrayList<String>();
@@ -26,8 +25,10 @@ public class StreamsExample3 {
 		names.add("Venkatesh");
 		names.add("Gopal");
 		Stream<String> namesStream = names.stream();
-		names.add("Rahul");
-		out.println("Printing stream elements after modifiying original list");
+		out.println("Printing stream elements 1st time");
+		namesStream.forEach(out::println);
+		out.println();
+		out.println("Printing stream elements 2nd time");
 		namesStream.forEach(out::println);
 	}
 
