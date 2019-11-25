@@ -17,8 +17,10 @@ public class ConcurrencyExample03 {
 
 	/*
 	 * This is a solution to previous example . Example on volatile keyword.Volatile
-	 * keyword will makes always variables to always to read/write from RAM(no cpu
-	 * cache).
+	 * keyword will make variables to always to read/write from RAM(bypass cpu
+	 * cache).However, volatile keyword will not help from race conditions(multiple
+	 * threads trying to update the variable).In order to achieve such kind of
+	 * situations we need to use synchronized blocks/methods.
 	 * 
 	 */
 
