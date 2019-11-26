@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.handson.concurrent;
+package com.handson.concurrency;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -11,19 +11,22 @@ import java.util.concurrent.Executors;
  * @author sveera
  *
  */
-public class ConcurrencyExample02 {
+public class ConcurrencyExample03 {
 
-	private int counter = 0;
+	private volatile int counter = 0;
 
 	/*
-	 * Below example sometime's will execute forever due to goodbye thread running
-	 * forever. This is due to value of the variables are read from cpu cache.To
-	 * overcome this issue we can use volatile keyword.See next example.
+	 * This is a solution to previous example . Example on volatile keyword.Volatile
+	 * keyword will make variables to always to read/write from RAM(bypass cpu
+	 * cache).However, volatile keyword will not help from race conditions(multiple
+	 * threads trying to update the variable).In order to achieve such kind of
+	 * situations we need to use synchronized blocks/methods.
+	 * 
 	 */
 
 	public static void main(String[] args) {
 
-		ConcurrencyExample02 concurrencyExample01 = new ConcurrencyExample02();
+		ConcurrencyExample03 concurrencyExample01 = new ConcurrencyExample03();
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		Callable<Void> hellos = concurrencyExample01.getHellosThread();
 		Callable<Void> goodbyes = concurrencyExample01.getGoodByesThread();

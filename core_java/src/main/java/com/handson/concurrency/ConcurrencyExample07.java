@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.handson.concurrent;
+package com.handson.concurrency;
 
 /**
  * @author sveera

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.handson.concurrent;
+package com.handson.concurrency;
 
 import static java.lang.System.out;
 
