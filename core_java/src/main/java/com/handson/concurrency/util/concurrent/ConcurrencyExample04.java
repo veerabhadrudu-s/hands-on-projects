@@ -19,8 +19,11 @@ import java.util.concurrent.TimeUnit;
 public class ConcurrencyExample04 {
 
 	/*
-	 * Example on ScheduledExecutorService.ScheduledExecutorService stops executing
-	 * particular task , if there is any exception in Runnable Task.
+	 * Example on ScheduledExecutorService. Examples on
+	 * ScheduledExecutorService.scheduleAtFixedRate and
+	 * ScheduledExecutorService.scheduleWithFixedDelay. ScheduledExecutorService
+	 * stops executing particular task , if there is any exception inside Runnable
+	 * Task.
 	 */
 	public static void main(String[] args) throws InterruptedException {
 		Thread.setDefaultUncaughtExceptionHandler((Thread th, Throwable t) -> System.out.println(
@@ -65,6 +68,11 @@ public class ConcurrencyExample04 {
 		scheduledExecutorService.scheduleWithFixedDelay(runnableTask2, 10, 5000, TimeUnit.MILLISECONDS);
 		ScheduledFuture<?> scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(runnableTask3, 10, 10,
 				TimeUnit.MILLISECONDS);
+		/*
+		 * As exception is thrown in RunnableTask3, It's not executed by
+		 * scheduledExecutorService after exception.Exception can be inspected using
+		 * ScheduledFuture Object.
+		 */
 		try {
 			scheduledFuture.get();
 		} catch (ExecutionException e) {
