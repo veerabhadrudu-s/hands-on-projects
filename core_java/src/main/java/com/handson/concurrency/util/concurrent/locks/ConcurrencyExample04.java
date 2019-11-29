@@ -3,24 +3,19 @@
  */
 package com.handson.concurrency.util.concurrent.locks;
 
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author sveera
  *
  */
 public class ConcurrencyExample04 {
-
-	/*
-	 * Example on ScheduledExecutorService.ScheduledExecutorService stops executing
-	 * particular task , if there is any exception in Runnable Task.
+	/**
+	 * Refer further classes from java.util.concurrent.locks package such as
+	 * AbstractQueuedSynchronizer,AbstractOwnableSynchronizer and
+	 * AbstractQueuedLongSynchronizer
+	 * 
+	 * <pre>
+	 *  https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/package-summary.html
+	 * </pre>
 	 */
 	public static void main(String[] args) throws InterruptedException {
 

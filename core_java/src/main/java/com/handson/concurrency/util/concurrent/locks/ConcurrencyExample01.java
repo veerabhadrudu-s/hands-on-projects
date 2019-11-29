@@ -10,8 +10,7 @@ package com.handson.concurrency.util.concurrent.locks;
 public class ConcurrencyExample01 {
 
 	/*
-	 * Example on ThreadLocal.Threadlocal will always keep shared variable at Thread
-	 * Level.
+	 * Example on Simple Lock.
 	 */
 	public static void main(String[] args) {
 

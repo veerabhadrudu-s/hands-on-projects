@@ -3,13 +3,6 @@
  */
 package com.handson.concurrency.util.concurrent.locks;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 /**
  * @author sveera
  *
@@ -17,7 +10,7 @@ import java.util.concurrent.TimeoutException;
 public class ConcurrencyExample02 {
 
 	/*
-	 * Example on ExecuterService.
+	 * Example on ReadWriteLock.
 	 * 
 	 */
 	public static void main(String[] args) {
