@@ -13,7 +13,7 @@ public class ConcurrencyExample05a {
 
 	/*
 	 * synchronized example on throw exception while object is locked. If an
-	 * exception is thrown when object is locked (In synchronized method) , Thread
+	 * exception is thrown in synchronized method with object locked , Thread
 	 * holding the lock will release it.
 	 */
 	public static void main(String[] args) throws InterruptedException {
