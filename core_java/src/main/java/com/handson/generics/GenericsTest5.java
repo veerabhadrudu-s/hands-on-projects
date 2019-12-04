@@ -20,7 +20,7 @@ public class GenericsTest5 {
 		 * method to get Number object.
 		 */
 		List<? super Number> numbers = new ArrayList<>();
-		numbers.add(new Integer(5));
+		numbers.add(Integer.valueOf(5));
 		// Number value = numbers.get(0);
 
 		/*

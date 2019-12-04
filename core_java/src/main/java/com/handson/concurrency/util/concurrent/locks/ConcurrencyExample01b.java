@@ -42,10 +42,6 @@ public class ConcurrencyExample01b {
 
 		private final int groupId;
 
-		public int getGroupId() {
-			return groupId;
-		}
-
 		public static Group getGroupById(int id) {
 			return id == ECE.groupId ? ECE : id == CSE.groupId ? CSE : EEE;
 		}
@@ -171,18 +167,18 @@ public class ConcurrencyExample01b {
 				/*
 				 * Check If sharedvalue is null, this can happen only when all
 				 * MAX_PRODUCABLE_VALUES count values are consumed by thread's and still some
-				 * consumer thread's are blocked.
-				 * sharedValue is not null , this can happen only due to missed signals.
+				 * consumer thread's are blocked. sharedValue is not null , this can happen only
+				 * due to missed signals.
 				 */
 				sharedValue = sharedValue == null ? -1 : sharedValue;
 				try {
-					Thread.sleep(1000);
 					reentrantLock.lock();
 					condition.signalAll();
+					reentrantLock.unlock();
+					// Sleeping just to allow previously wokeup thread to consume value.
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				} finally {
-					reentrantLock.unlock();
 				}
 			});
 
