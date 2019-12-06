@@ -19,7 +19,7 @@ import java.util.Scanner;
  * @author sveera
  *
  */
-public class Example01Serialization_InvalidClassException_on_serialVersionUID {
+public class Example01SerializationInvalidClassException_on_serialVersionUID {
 
 	/*
 	 * Example on serialization specific to serialVersionUID. If serialVersionUID
