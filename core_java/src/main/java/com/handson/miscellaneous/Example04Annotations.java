@@ -25,7 +25,7 @@ public class Example04Annotations {
 	 * applied(method,class,annotation,variable etc.).Annotations can store certain
 	 * meta data using elements which are represented as abstract method with no
 	 * arguments and data type stored by element as return type. Supported data
-	 * types by these elements are primitive data types,Enum,String,Class type and
+	 * types by these elements are primitive data types,enum,String,Class type and
 	 * Array of previous allowed types. You can provide default value to the
 	 * elements using default keyword proceeded by value.
 	 */
