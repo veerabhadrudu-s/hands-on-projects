@@ -12,8 +12,6 @@ import java.util.concurrent.Executors;
  */
 public class ConcurrencyExample01 {
 
-	private boolean done = false;
-
 	/*
 	 * Simple Multi threading example with 2 thread having a shared variable (done).
 	 * Note in this example we have created thread's using anonymous inner class and
@@ -21,6 +19,7 @@ public class ConcurrencyExample01 {
 	 * Lambda using this.done and anonymous class using
 	 * ConcurrencyExample01.this.done.
 	 */
+	private boolean done = false;
 
 	public static void main(String[] args) {
 

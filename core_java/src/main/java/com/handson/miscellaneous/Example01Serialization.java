@@ -23,11 +23,11 @@ public class Example01Serialization {
 	 * Example on serialization.In order to make an object to participate in
 	 * Serialization ,object's class has to implement Serializable interface.This
 	 * includes class types of instance variable of the class.If an instance
-	 * variable type doesn't implement Serializable interface when try to Serialize
-	 * that object , we get java.io.NotSerializableException (Remove transient
-	 * keywork from nonSerializableClass instance variable in SerializableClass to
-	 * see this exception in below example). In order to skip a variable from
-	 * Serialization process tar the variable with transient keyword.
+	 * variable type doesn't implement Serializable interface and when it tries to
+	 * Serialize that object , we get java.io.NotSerializableException (Remove
+	 * transient keywork from nonSerializableClass instance variable in
+	 * SerializableClass to see this exception in below example). In order to skip a
+	 * variable from Serialization process, tag the variable with transient keyword.
 	 */
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		NonSerializableClass nonSerializableClass = new NonSerializableClass(10);
@@ -60,7 +60,7 @@ public class Example01Serialization {
 		private static final long serialVersionUID = 1L;
 		private transient int counter;
 		private final String message;
-		private transient final NonSerializableClass nonSerializableClass;
+		private final transient NonSerializableClass nonSerializableClass;
 
 		{
 			counter++;
