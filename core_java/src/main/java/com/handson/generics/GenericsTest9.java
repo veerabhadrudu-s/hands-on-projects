@@ -15,7 +15,7 @@ public class GenericsTest9 {
 	public static void main(String[] args) {
 
 		findMinUsingComparableDefinedInTypeArgumentOrUsingComparableDefinedInParentOfTypeArgument(
-				Collections.emptyList());
+				Collections.<String>emptyList());
 	}
 
 	// This method allows to findMin Object using Comparable implemented in Type T
