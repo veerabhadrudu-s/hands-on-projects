@@ -3,6 +3,7 @@
  */
 package com.handson.generics;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,6 +17,12 @@ public class GenericsTest9 {
 
 		findMinUsingComparableDefinedInTypeArgumentOrUsingComparableDefinedInParentOfTypeArgument(
 				Collections.<String>emptyList());
+		findMinUsingComparableDefinedOnlyInTypeArgument(Collections.<String>emptyList());
+		findMinUsingComparableDefinedInTypeArgumentOrUsingComparableDefinedInParentOfTypeArgument(
+				Collections.<LocalDate>emptyList());
+		// Below line will no get compiled as Comparable is implemented in
+		// ChronoLocalDate Interface which is extended by LocalDate.
+		// findMinUsingComparableDefinedOnlyInTypeArgument(Collections.<LocalDate>emptyList());
 	}
 
 	// This method allows to findMin Object using Comparable implemented in Type T
