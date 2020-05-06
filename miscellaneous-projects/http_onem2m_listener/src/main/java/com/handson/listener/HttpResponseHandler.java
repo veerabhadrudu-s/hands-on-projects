@@ -25,28 +25,44 @@ public class HttpResponseHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange t) throws IOException {
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(t.getRequestBody()));
-		StringBuilder out = new StringBuilder();
-		String line;
-		while ((line = reader.readLine()) != null) {
-			out.append(line);
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(t.getRequestBody()));
+				OutputStream os = t.getResponseBody()) {
+			String requestBody = readRequestBody(reader);
+			printRequest(requestBody, t.getRequestHeaders());
+			setResponseHeaders(t.getRequestHeaders(), t.getResponseHeaders());
+			printResponse(requestBody, t.getResponseHeaders());
+			t.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+			os.write(requestBody.getBytes());
 		}
 
-		Headers requestHeaders = t.getRequestHeaders();
-		System.out.println("Content-type :" + requestHeaders.get("Content-type"));
-		System.out.println("Content-length :" + requestHeaders.get("Content-length"));
-		System.out.println("X-m2m-origin :" + requestHeaders.get("X-m2m-origin"));
-		System.out.println("X-m2m-nm :" + requestHeaders.get("X-m2m-nm"));
-		System.out.println("X-m2m-ri :" + requestHeaders.get("X-m2m-ri"));
-		System.out.println("Authorization :" + requestHeaders.get("Authorization"));
-		System.out.println("Accept : " + requestHeaders.get("Accept"));
-		System.out.println("Accept Charset :" + requestHeaders.get("Accept-Charset"));
-		System.out.println();
-		System.out.println(out.toString());
-		System.out.println();
-		System.out.println();
+	}
 
-		Headers responseHeaders = t.getResponseHeaders();
+	private String readRequestBody(BufferedReader reader) throws IOException {
+		StringBuilder out = new StringBuilder();
+		for (String line; (line = reader.readLine()) != null;)
+			out.append(line);
+		return out.toString();
+	}
+
+	private void printResponse(String requestBody, Headers responseHeaders) {
+		System.out.println("Sending below response headers");
+		responseHeaders.forEach((key, value) -> System.out.printf("%s : %s \n", key, value));
+		printingTwoEmptyLines();
+		System.out.println("Sending response body same as request body ");
+		System.out.println(requestBody);
+		printingTwoEmptyLines();
+	}
+
+	private void printRequest(String requestBody, Headers requestHeaders) {
+		System.out.println("Printing request headers");
+		requestHeaders.forEach((key, value) -> System.out.printf("%s : %s \n", key, value));
+		printingTwoEmptyLines();
+		System.out.println("Printing request body");
+		System.out.println(requestBody);
+		printingTwoEmptyLines();
+	}
+
+	private void setResponseHeaders(Headers requestHeaders, Headers responseHeaders) {
 		if (responseConfiguration.getContentType() != null)
 			responseHeaders.set("Content-Type", responseConfiguration.getContentType());
 		if (responseConfiguration.getResponseCode() != null)
@@ -57,13 +73,10 @@ public class HttpResponseHandler implements HttpHandler {
 							: responseConfiguration.getRequestIdentifier();
 			responseHeaders.set("X-M2M-RI", requestIndentifier);
 		}
+	}
 
-		reader.close();
-
-		t.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-		OutputStream os = t.getResponseBody();
-		os.write(out.toString().getBytes());
-		os.close();
-
+	private void printingTwoEmptyLines() {
+		System.out.println();
+		System.out.println();
 	}
 }
